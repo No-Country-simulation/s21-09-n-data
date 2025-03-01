@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Commerce Analytics Dashboard</title>
+    <!-- Estilos CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.35.3/apexcharts.min.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/dark-mode.css" id="dark-mode-styles" disabled>
+
+    <!-- Script para alternar modo oscuro -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const savedTheme = localStorage.getItem("theme") || "light";
+            document.documentElement.setAttribute("data-theme", savedTheme);
+    
+            const darkModeStyles = document.getElementById("dark-mode-styles");
+    
+            if (savedTheme === "dark") {
+                darkModeStyles.removeAttribute("disabled");
+            }
+    
+            document.getElementById("theme-toggle-btn").addEventListener("click", function () {
+                let currentTheme = document.documentElement.getAttribute("data-theme");
+                let newTheme = currentTheme === "dark" ? "light" : "dark";
+    
+                document.documentElement.setAttribute("data-theme", newTheme);
+                localStorage.setItem("theme", newTheme);
+    
+                if (newTheme === "dark") {
+                    darkModeStyles.removeAttribute("disabled");
+                } else {
+                    darkModeStyles.setAttribute("disabled", "true");
+                }
+            });
+        });
+    </script>
+    
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h3>E-Commerce Analytics</h3>
+                <button class="btn-toggle-sidebar" id="toggleSidebar">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            <div class="sidebar-content">
+                <ul class="nav flex-column">
+                    <li class="nav-item active" data-page="dashboard">
+                        <a class="nav-link">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span>Dashboard Principal</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-page="customer">
+                        <a class="nav-link">
+                            <i class="fas fa-users"></i>
+                            <span>Comportamiento Cliente</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-page="reviews">
+                        <a class="nav-link">
+                            <i class="fas fa-comments"></i>
+                            <span>Análisis de Reviews</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-page="ml">
+                        <a class="nav-link">
+                            <i class="fas fa-robot"></i>
+                            <span>Machine Learning</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-page="inventory">
+                        <a class="nav-link">
+                            <i class="fas fa-boxes"></i>
+                            <span>Inventario</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-page="settings">
+                        <a class="nav-link">
+                            <i class="fas fa-cog"></i>
+                            <span>Configuraciones</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Contenido principal -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-left">
+                    <h2 id="page-title">Dashboard Principal</h2>
+                </div>
+                <div class="header-right">
+                    <div class="date-picker-container">
+                        <label for="start-date">Desde:</label>
+                        <input type="date" id="start-date" class="form-control form-control-sm">
+                        <label for="end-date">Hasta:</label>
+                        <input type="date" id="end-date" class="form-control form-control-sm">
+                        <button class="btn btn-primary btn-sm" id="apply-date-filter">Aplicar</button>
+                    </div>
+                    <div class="theme-toggle">
+                        <button id="theme-toggle-btn" class="btn btn-outline-secondary btn-sm">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                    </div>
+                    <div class="user-profile">
+                        <div class="dropdown">
+                            <button class="btn dropdown-toggle" type="button" id="userMenu" data-bs-toggle="dropdown">
+                                <img src="C:\Users\jose-\Desktop\T\CODIGO_FINAL\s21-09-n-data\DEMO-T\assets\img\user1.jpg" alt="User" class="user-avatar">
+                                <span class="user-name">Admin</span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
+                                <li><a class="dropdown-item" href="#"><i class="fas fa-user"></i> Perfil</a></li>
+                                <li><a class="dropdown-item" href="#"><i class="fas fa-cog"></i> Preferencias</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Contenedor de páginas -->
+            <div class="page-container">
+                <!-- Dashboard Principal -->
+                <div class="page active" id="dashboard-page">
+                    <div class="dashboard-summary">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="card metric-card">
+                                    <div class="card-body">
+                                        <div class="metric-icon">
+                                            <i class="fas fa-shopping-cart"></i>
+                                        </div>
+                                        <div class="metric-content">
+                                            <h5 class="metric-title">Ventas Totales</h5>
+                                            <p class="metric-value" id="total-sales">0</p>
+                                            <p class="metric-trend up"><i class="fas fa-arrow-up"></i> 8.5%</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card metric-card">
+                                    <div class="card-body">
+                                        <div class="metric-icon">
+                                            <i class="fas fa-percentage"></i>
+                                        </div>
+                                        <div class="metric-content">
+                                            <h5 class="metric-title">Tasa de Conversión</h5>
+                                            <p class="metric-value" id="conversion-rate">0%</p>
+                                            <p class="metric-trend up"><i class="fas fa-arrow-up"></i> 3.2%</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card metric-card">
+                                    <div class="card-body">
+                                        <div class="metric-icon">
+                                            <i class="fas fa-dollar-sign"></i>
+                                        </div>
+                                        <div class="metric-content">
+                                            <h5 class="metric-title">Ingresos Totales</h5>
+                                            <p class="metric-value" id="total-revenue">$0</p>
+                                            <p class="metric-trend up"><i class="fas fa-arrow-up"></i> 12.3%</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card metric-card">
+                                    <div class="card-body">
+                                        <div class="metric-icon">
+                                            <i class="fas fa-cubes"></i>
+                                        </div>
+                                        <div class="metric-content">
+                                            <h5 class="metric-title">Stock Disponible</h5>
+                                            <p class="metric-value" id="available-stock">0</p>
+                                            <p class="metric-trend down"><i class="fas fa-arrow-down"></i> 2.1%</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-4">
+                        <div class="col-md-8">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="card-title">Tendencia de Ventas</h5>
+                                    <div class="card-tools">
+                                        <div class="btn-group">
+                                            <button type="button" class="btn btn-sm btn-outline-secondary active" data-interval="day">Día</button>
+                                            <button type="button" class="btn btn-sm btn-outline-secondary" data-interval="week">Semana</button>
+                                            <button type="button" class="btn btn-sm btn-outline-secondary" data-interval="month">Mes</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card-body">
+                                    <div id="sales-trend-chart" class="chart-container"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="card-title">Productos Más Vendidos</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div id="top-products-chart" class="chart-container"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row mt-4">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="card-title">Mapa de Calor de Ubicaciones</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div id="location-heatmap" class="chart-container"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5 class="card-title">Actividad Reciente</h5>
+                                </div>
+                                <div class="card-body">
+                                    <ul class="activity-list" id="recent-activity">
+                                        <li class="activity-item">
+                                            <div class="activity-icon"><i class="fas fa-shopping-cart"></i></div>
+                                            <div class="activity-content">
+                                                <p class="activity-text">Nueva venta: <strong>Smartphone XYZ</strong></p>
+                                                <p class="activity-time">Hace 5 minutos</p>
+                                            </div>
+                                        </li>
+                                        <li class="activity-item">
+                                            <div class="activity-icon"><i class="fas fa-user"></i></div>
+                                            <div class="activity-content">
+                                                <p class="activity-text">Nuevo cliente registrado: <strong>María López</strong></p>
+                                                <p class="activity-time">Hace 15 minutos</p>
+                                            </div>
+                                        </li>
+                                        <li class="activity-item">
+                                            <div class="activity-icon"><i class="fas fa-star"></i></div>
+                                            <div class="activity-content">
+                                                <p class="activity-text">Nueva reseña: <strong>Tablet ABC (5 estrellas)</strong></p>
+                                                <p class="activity-time">Hace 32 minutos</p>
+                                            </div>
+                                        </li>
+                                        <li class="activity-item">
+                                            <div class="activity-icon"><i class="fas fa-exclamation-triangle"></i></div>
+                                            <div class="activity-content">
+                                                <p class="activity-text">Alerta de stock bajo: <strong>Auriculares QWE</strong></p>
+                                                <p class="activity-time">Hace 45 minutos</p>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Otras páginas se cargarán dinámicamente con JS -->
+                <div class="page" id="customer-page"></div>
+                <div class="page" id="reviews-page"></div>
+                <div class="page" id="ml-page"></div>
+                <div class="page" id="inventory-page"></div>
+                <div class="page" id="settings-page"></div>
+            </div>
+
+            <!-- Footer -->
+            <footer class="footer">
+                <p>&copy; 2025 E-Commerce Analytics Dashboard</p>
+            </footer>
+        </main>
+    </div>
+
+    <!-- Ventana modal de login -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Iniciar sesión</h5>
+                </div>
+                <div class="modal-body">
+                    <form id="login-form">
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Usuario</label>
+                            <input type="text" class="form-control" id="username" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Contraseña</label>
+                            <input type="password" class="form-control" id="password" required>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">Acceder</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.35.3/apexcharts.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/heatmap.js/2.0.2/heatmap.min.js"></script>
+    <script src="assets/js/utils.js"></script>
+    <script src="assets/js/auth.js"></script>
+    <script src="assets/js/charts.js"></script>
+    <script src="assets/js/dashboard.js"></script>
+    <script src="assets/js/customer.js"></script>
+    <script src="assets/js/reviews.js"></script>
+    <script src="assets/js/ml.js"></script>
+    <script src="assets/js/inventory.js"></script>
+    <script src="assets/js/main.js"></script>
+</body>
+</html>

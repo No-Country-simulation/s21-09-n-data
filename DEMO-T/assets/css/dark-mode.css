@@ -1,0 +1,109 @@
+:root[data-theme="dark"] {
+    --primary-color: #6c8cff;
+    --text-color: #e1e1e1;
+    --text-muted: #9ca3af;
+    --border-color: #374151;
+    --card-bg: #1f2937;
+    --body-bg: #111827;
+    --sidebar-bg: #1f2937;
+    --header-bg: #1f2937;
+}
+
+[data-theme="dark"] .sidebar {
+    border-right: 1px solid #374151;
+}
+
+[data-theme="dark"] .header {
+    border-bottom: 1px solid #374151;
+}
+
+[data-theme="dark"] .metric-icon {
+    background-color: rgba(108, 140, 255, 0.2);
+}
+
+[data-theme="dark"] .nav-item.active {
+    background-color: rgba(108, 140, 255, 0.2);
+}
+
+[data-theme="dark"] .nav-link:hover {
+    background-color: rgba(108, 140, 255, 0.1);
+}
+
+[data-theme="dark"] .activity-icon {
+    background-color: rgba(108, 140, 255, 0.2);
+}
+
+[data-theme="dark"] .card {
+    background-color: var(--card-bg);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+[data-theme="dark"] .dropdown-menu {
+    background-color: #1f2937;
+    border-color: #374151;
+}
+
+[data-theme="dark"] .dropdown-item {
+    color: var(--text-color);
+}
+
+[data-theme="dark"] .dropdown-item:hover {
+    background-color: rgba(108, 140, 255, 0.1);
+}
+
+[data-theme="dark"] .dropdown-divider {
+    border-top-color: #374151;
+}
+
+[data-theme="dark"] .form-control {
+    background-color: #374151;
+    border-color: #4b5563;
+    color: var(--text-color);
+}
+
+[data-theme="dark"] .btn-outline-secondary {
+    color: #9ca3af;
+    border-color: #4b5563;
+}
+
+[data-theme="dark"] .btn-outline-secondary:hover {
+    background-color: #374151;
+    color: var(--text-color);
+}
+
+[data-theme="dark"] .apexcharts-text,
+[data-theme="dark"] .apexcharts-title-text,
+[data-theme="dark"] .apexcharts-legend-text {
+    fill: var(--text-color) !important;
+    color: var(--text-color) !important;
+}
+
+[data-theme="dark"] .apexcharts-gridline,
+[data-theme="dark"] .apexcharts-xaxis-line,
+[data-theme="dark"] .apexcharts-yaxis-line {
+    stroke: #374151;
+}
+
+[data-theme="dark"] .apexcharts-tooltip {
+    background-color: #1f2937 !important;
+    border-color: #374151 !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2) !important;
+}
+
+[data-theme="dark"] .apexcharts-tooltip-title {
+    background-color: #374151 !important;
+    border-bottom-color: #4b5563 !important;
+}
+
+[data-theme="dark"] .modal-content {
+    background-color: #1f2937;
+    border-color: #374151;
+}
+
+[data-theme="dark"] .modal-header {
+    border-bottom-color: #374151;
+}
+
+[data-theme="dark"] .modal-footer {
+    border-top-color: #374151;
+}
