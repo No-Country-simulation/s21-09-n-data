@@ -9,30 +9,15 @@ class CustomerAnalysis {
         this.pageId = 'customer-page';
         this.page = document.getElementById(this.pageId);
         this.initialized = false;
-    
-        // Verifica si existe el botón antes de agregar el evento
-        const btn = document.querySelector(`[data-page="customer"]`);
-        if (btn) {
-            btn.addEventListener('click', () => this.showPage());
-        }
-    }
-    
-    showPage() {
-        if (!this.page) return;
-    
-        // Ocultar todas las páginas
-        document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
-    
-        // Mostrar la correcta
-        this.page.classList.add("active");
-    
-        // Inicializar solo una vez
-        if (!this.initialized) {
-            this.initPage();
-            this.initialized = true;
-        }
-    
-        this.loadData();
+        
+        // Inicializar solo cuando se accede a la página
+        document.querySelector(`[data-page="customer"]`).addEventListener('click', () => {
+            if (!this.initialized) {
+                this.initPage();
+                this.initialized = true;
+            }
+            this.loadData();
+        });
     }
     /**
      * Inicializa la estructura de la página

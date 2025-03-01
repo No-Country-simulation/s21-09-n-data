@@ -86,16 +86,29 @@ function initUIComponents() {
  */
 function applyThemePreference() {
     const savedTheme = localStorage.getItem('theme') || 'light';
-    appState.darkMode = savedTheme === 'dark';
-    
     document.documentElement.setAttribute('data-theme', savedTheme);
+
     const darkModeStyles = document.getElementById('dark-mode-styles');
-    
     if (savedTheme === 'dark') {
         darkModeStyles.removeAttribute('disabled');
     } else {
         darkModeStyles.setAttribute('disabled', 'true');
     }
+
+    updateThemeButtons(savedTheme);
+}
+
+function updateThemeButtons(selectedTheme) {
+    const themeButtons = document.querySelectorAll('.theme-button');
+    themeButtons.forEach(button => {
+        if (button.dataset.theme === selectedTheme) {
+            button.classList.add('btn-primary'); // Activar botón
+            button.classList.remove('btn-outline-primary');
+        } else {
+            button.classList.remove('btn-primary'); // Desactivar otros botones
+            button.classList.add('btn-outline-primary');
+        }
+    });
 }
 
 /**
@@ -649,6 +662,124 @@ function loadSettingsPage() {
                 </div>
             </div>
         </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">Notificaciones y Alertas</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class="form-label">Selecciona las notificaciones que deseas recibir</label>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="notify-inventory">
+                                <label class="form-check-label" for="notify-inventory">Baja en Inventario</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="notify-orders">
+                                <label class="form-check-label" for="notify-orders">Retraso en Pedidos</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="notify-sales">
+                                <label class="form-check-label" for="notify-sales">Picos de Venta</label>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Canal de Notificación</label>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="channel-email">
+                                <label class="form-check-label" for="channel-email">Correo Electrónico</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="channel-sms">
+                                <label class="form-check-label" for="channel-sms">SMS</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="channel-inapp">
+                                <label class="form-check-label" for="channel-inapp">Notificación en la Plataforma</label>
+                            </div>
+                        </div>
+                        <div class="d-grid">
+                            <button class="btn btn-primary" id="save-notifications-btn">Guardar Configuración</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">Gestión de Usuarios y Permisos</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class="form-label">Seleccionar Usuario</label>
+                            <select class="form-select" id="user-select">
+                                <option value="admin">Administrador</option>
+                                <option value="analyst">Analista</option>
+                                <option value="inventory">Gestor de Inventario</option>
+                            </select>
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="manage-orders">
+                            <label class="form-check-label" for="manage-orders">Gestionar Pedidos</label>
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="manage-inventory">
+                            <label class="form-check-label" for="manage-inventory">Gestionar Inventario</label>
+                        </div>
+                        <div class="d-grid">
+                            <button class="btn btn-primary" id="save-permissions-btn">Guardar Permisos</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">Frecuencia de Actualización de Datos</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3">
+                            <label class="form-label">Selecciona la frecuencia de actualización</label>
+                            <select class="form-select" id="data-refresh-rate">
+                                <option value="5">Cada 5 minutos</option>
+                                <option value="15">Cada 15 minutos</option>
+                                <option value="60">Cada hora</option>
+                                <option value="manual">Manual</option>
+                            </select>
+                        </div>
+                        <div class="d-grid">
+                            <button class="btn btn-primary" id="save-refresh-settings">Guardar Configuración</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="card-title">Modo de Mantenimiento</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="maintenance-mode">
+                            <label class="form-check-label" for="maintenance-mode">Activar modo de mantenimiento</label>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Mensaje de mantenimiento</label>
+                            <textarea class="form-control" id="maintenance-message" rows="3" placeholder="Escribe un mensaje de mantenimiento"></textarea>
+                        </div>
+                        <div class="d-grid">
+                            <button class="btn btn-primary" id="save-maintenance-settings">Guardar Configuración</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     `;
     
     // Inicializar eventos para la página de configuraciones
@@ -680,7 +811,7 @@ function initSettingsEvents() {
                     darkModeStyles.setAttribute('disabled', 'true');
                 }
             }
-            
+            updateThemeButtons(theme);
             // Actualizar UI
             refreshAllCharts();
         });
@@ -690,7 +821,7 @@ function initSettingsEvents() {
     document.getElementById('generate-report-btn').addEventListener('click', generateReport);
     
     // Cargar configuraciones guardadas
-    loadSavedSettings();
+    applyThemePreference();
 }
 
 /**
