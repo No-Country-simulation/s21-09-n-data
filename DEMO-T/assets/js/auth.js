@@ -3,12 +3,13 @@
  */
 class Auth {
     constructor() {
-        this.currentUser = null;
-        this.isAuthenticated = false;
-        this.permissions = [];
-        this.initLoginModal();
-        this.checkSession();
-        this.setupListeners();
+        this.currentUser = null;      // Almacena el usuario autenticado
+        this.isAuthenticated = false; // Estado de autenticación
+        this.permissions = [];        // Lista de permisos del usuario
+        
+        this.initLoginModal();  // Configura el modal de login
+        this.checkSession();    // Verifica si hay sesión activa
+        this.setupListeners();  // Configura eventos para login/logout
     }
 
     /**
@@ -92,18 +93,20 @@ class Auth {
             console.error('Login error:', error);
             Utils.showNotification('Error de conexión', 'error');
             
-            // Para fines de demo, permitimos acceso sin backend
-            this.currentUser = {
-                id: 1,
-                username: username,
-                name: 'Usuario Demo',
-                role: 'admin'
-            };
-            this.isAuthenticated = true;
-            localStorage.setItem('user', JSON.stringify(this.currentUser));
-            this.loginModal.hide();
-            Utils.showNotification(`Bienvenido, Modo Demo`, 'success');
-            document.querySelector('.user-name').textContent = 'Usuario Demo';
+            // Usuario y contraseña de respaldo en caso de que el backend no esté disponible
+            if (username === 'admin' && password === 'admin') {
+                this.currentUser = {
+                    id: 1,
+                    username: 'admin',
+                    name: 'Administrador',
+                    role: 'admin'
+                };
+                this.isAuthenticated = true;
+                localStorage.setItem('user', JSON.stringify(this.currentUser));
+                this.loginModal.hide();
+                Utils.showNotification('Bienvenido, Administrador', 'success');
+                document.querySelector('.user-name').textContent = 'Administrador';
+            }
         }
     }
 
