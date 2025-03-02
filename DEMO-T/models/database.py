@@ -177,94 +177,86 @@ class Database:
         conn.close()
         return results    
     def _populate_sample_data(self):
-        """Popula la base de datos con datos de muestra"""
+        """Popula la base de datos con datos de muestra solo para la tabla users"""
         conn = sqlite3.connect(self.db_path)
-        
-        # Generar datos de muestra para cada tabla
-        # Usuarios
+            
+        # Generar datos de muestra para la tabla users
         users_df = pd.DataFrame({
             'username': ['admin', 'analyst', 'manager'],
             'password': ['admin123', 'analyst123', 'manager123'],
             'role': ['admin', 'analyst', 'manager'],
             'last_login': [datetime.now().strftime('%Y-%m-%d %H:%M:%S') for _ in range(3)]
         })
+        
         users_df.to_sql('users', conn, if_exists='append', index=False)
+                       
+        conn.commit()
+        conn.close()
+        print("✅ Datos de usuarios cargados exitosamente.")
         
-        # Datos de cliente, producto, sesiones, etc. (simplificados para el ejemplo)
-        # En una implementación real, estos serían datos más extensos
+    def populate_tables_from_ecommerce(self):
+        """Popula las tablas con datos de la tabla 'ecommerse'."""
+        conn = sqlite3.connect(self.db_path)
+        cursor = conn.cursor()
         
-        # Productos - 20 productos de muestra
-        import numpy as np
-        categories = ['Electrónica', 'Ropa', 'Hogar', 'Deportes', 'Juguetes']
-        suppliers = ['SUPP001', 'SUPP002', 'SUPP003', 'SUPP004']
-        seasonality = ['Verano', 'Invierno', 'Todo el año', 'Navidad']
+        # Verificar si la tabla ecommerse existe
+        cursor.execute("SELECT name FROM sqlite_master WHERE type='table' AND name='ecommerse';")
+        if not cursor.fetchone():
+            print("❌ La tabla 'ecommerse' no existe. No se pueden poblar las demás tablas.")
+            conn.close()
+            return
         
-        products = []
-        for i in range(1, 21):
-            product = {
-                'product_id': f'PROD{i:03d}',
-                'product_name': f'Producto {i}',
-                'category': np.random.choice(categories),
-                'price': round(np.random.uniform(10, 500), 2),
-                'discount': round(np.random.uniform(0, 0.4), 2),
-                'tax': 0.16,
-                'stock_level': np.random.randint(0, 100),
-                'supplier_id': np.random.choice(suppliers),
-                'seasonality': np.random.choice(seasonality),
-                'popularity': np.random.randint(1, 101)
-            }
-            products.append(product)
+        # Cargar datos de la tabla ecommerse en un DataFrame
+        ecom_df = pd.read_sql_query("SELECT * FROM ecommerse", conn)
         
-        products_df = pd.DataFrame(products)
+        # Poblar la tabla sessions
+        sessions_df = ecom_df[['session_id', 'date', 'HORA', 'device_id', 'device_type', 'os', 'date_id', 'Customer ID']].drop_duplicates()
+        sessions_df.columns = ['session_id', 'date', 'HORA', 'device_id', 'device_type', 'os', 'date_id', 'customer_id']
+        sessions_df.to_sql('sessions', conn, if_exists='append', index=False)
+        
+        # Poblar la tabla products
+        products_df = ecom_df[['date', 'Product ID', 'Product Name', 'Category', 'Price', 'Discount', 'Tax', 'Stock Level', 'Supplier ID', 'Seasonality', 'Popularity']].drop_duplicates()
+        products_df.columns = ['date', 'product_id', 'product_name', 'category', 'price', 'discount', 'tax', 'stock_level', 'supplier_id', 'seasonality', 'popularity']
         products_df.to_sql('products', conn, if_exists='append', index=False)
         
-        # Clientes - 50 clientes de muestra
-        locations = ['Ciudad de México', 'Guadalajara', 'Monterrey', 'Puebla', 'Cancún', 'Tijuana']
-        genders = ['M', 'F', 'Otro']
-        
-        customers = []
-        for i in range(1, 51):
-            age = np.random.randint(18, 75)
-            if age < 25:
-                age_group = '18-24'
-            elif age < 35:
-                age_group = '25-34'
-            elif age < 45:
-                age_group = '35-44'
-            elif age < 55:
-                age_group = '45-54'
-            else:
-                age_group = '55+'
-            
-            customer = {
-                'customer_id': f'CUST{i:03d}',
-                'age': age,
-                'age_group': age_group,
-                'location': np.random.choice(locations),
-                'gender': np.random.choice(genders)
-            }
-            customers.append(customer)
-        
-        customers_df = pd.DataFrame(customers)
+        # Poblar la tabla customers
+        customers_df = ecom_df[['Customer ID', 'Age', 'Age Group', 'Location', 'gender']].drop_duplicates()
+        customers_df.columns = ['customer_id', 'age', 'age_group', 'location', 'gender']
         customers_df.to_sql('customers', conn, if_exists='append', index=False)
         
-        # Proveedores
-        suppliers_data = [
-            {'supplier_id': 'SUPP001', 'name': 'Proveedor A', 'contact': 'contactoA@example.com', 'performance_score': 4.8},
-            {'supplier_id': 'SUPP002', 'name': 'Proveedor B', 'contact': 'contactoB@example.com', 'performance_score': 4.2},
-            {'supplier_id': 'SUPP003', 'name': 'Proveedor C', 'contact': 'contactoC@example.com', 'performance_score': 3.9},
-            {'supplier_id': 'SUPP004', 'name': 'Proveedor D', 'contact': 'contactoD@example.com', 'performance_score': 4.5}
-        ]
-        suppliers_df = pd.DataFrame(suppliers_data)
+        # Poblar la tabla purchases
+        purchases_df = ecom_df[['Id_compra', 'Customer ID', 'session_id', 'date', 'HORA']].drop_duplicates()
+        purchases_df.columns = ['purchase_id', 'customer_id', 'session_id', 'date', 'HORA']
+        purchases_df.to_sql('purchases', conn, if_exists='append', index=False)
+        
+        # Poblar la tabla purchase_details
+        purchase_details_df = ecom_df[['Id_compra', 'Product ID', 'quantity', 'Shipping Cost', 'Shipping Method']].drop_duplicates()
+        purchase_details_df.columns = ['purchase_id', 'product_id', 'quantity', 'shipping_cost', 'shipping_method']
+        purchase_details_df.to_sql('purchase_details', conn, if_exists='append', index=False)
+        
+        # Poblar la tabla cart_abandonment
+        cart_abandonment_df = ecom_df[['session_id', 'Product ID', 'quantity', 'abandonment_time', 'date']].drop_duplicates()
+        cart_abandonment_df.columns = ['session_id', 'product_id', 'quantity', 'abandonment_time', 'date']
+        cart_abandonment_df.to_sql('cart_abandonment', conn, if_exists='append', index=False)
+        
+        # Poblar la tabla suppliers
+        suppliers_df = ecom_df[['Supplier ID']].drop_duplicates()
+        suppliers_df.columns = ['supplier_id']
         suppliers_df.to_sql('suppliers', conn, if_exists='append', index=False)
         
-        # Generar sesiones, compras, abandonos y reviews
-        # Esto es simplificado, en una implementación real habría más datos y relaciones
+        # Poblar la tabla reviews
+        reviews_df = ecom_df[['reviewId', 'Product ID', 'Customer ID', 'content', 'score', 'thumbsUpCount', 'at']].drop_duplicates()
+        reviews_df.columns = ['review_id', 'product_id', 'customer_id', 'content', 'score', 'thumbs_up_count', 'at']
+        reviews_df.to_sql('reviews', conn, if_exists='append', index=False)
+        
+        # Poblar la tabla review_replies
+        review_replies_df = ecom_df[['reviewId', 'replyContent', 'at']].drop_duplicates()
+        review_replies_df.columns = ['review_id', 'reply_content', 'at']
+        review_replies_df.to_sql('review_replies', conn, if_exists='append', index=False)
         
         conn.commit()
         conn.close()
-        
-        print("Base de datos creada y poblada con datos de muestra")
+        print("✅ Datos insertados correctamente en las tablas correspondientes.")
     
     def execute_query(self, query, params=None):
         """Ejecuta una consulta SQL y devuelve los resultados"""
