@@ -193,7 +193,7 @@ class Database:
         conn.commit()
         conn.close()
         print("✅ Datos de usuarios cargados exitosamente.")
-        
+            
     def populate_tables_from_ecommerce(self):
         """Popula las tablas con datos de la tabla 'ecommerse'."""
         conn = sqlite3.connect(self.db_path)
@@ -209,54 +209,59 @@ class Database:
         # Cargar datos de la tabla ecommerse en un DataFrame
         ecom_df = pd.read_sql_query("SELECT * FROM ecommerse", conn)
         
-        # Poblar la tabla sessions
-        sessions_df = ecom_df[['session_id', 'date', 'HORA', 'device_id', 'device_type', 'os', 'date_id', 'Customer ID']].drop_duplicates()
-        sessions_df.columns = ['session_id', 'date', 'HORA', 'device_id', 'device_type', 'os', 'date_id', 'customer_id']
-        sessions_df.to_sql('sessions', conn, if_exists='append', index=False)
-        
-        # Poblar la tabla products
-        products_df = ecom_df[['date', 'Product ID', 'Product Name', 'Category', 'Price', 'Discount', 'Tax', 'Stock Level', 'Supplier ID', 'Seasonality', 'Popularity']].drop_duplicates()
-        products_df.columns = ['date', 'product_id', 'product_name', 'category', 'price', 'discount', 'tax', 'stock_level', 'supplier_id', 'seasonality', 'popularity']
-        products_df.to_sql('products', conn, if_exists='append', index=False)
-        
-        # Poblar la tabla customers
-        customers_df = ecom_df[['Customer ID', 'Age', 'Age Group', 'Location', 'gender']].drop_duplicates()
-        customers_df.columns = ['customer_id', 'age', 'age_group', 'location', 'gender']
-        customers_df.to_sql('customers', conn, if_exists='append', index=False)
-        
-        # Poblar la tabla purchases
-        purchases_df = ecom_df[['Id_compra', 'Customer ID', 'session_id', 'date', 'HORA']].drop_duplicates()
-        purchases_df.columns = ['purchase_id', 'customer_id', 'session_id', 'date', 'HORA']
-        purchases_df.to_sql('purchases', conn, if_exists='append', index=False)
-        
-        # Poblar la tabla purchase_details
-        purchase_details_df = ecom_df[['Id_compra', 'Product ID', 'quantity', 'Shipping Cost', 'Shipping Method']].drop_duplicates()
-        purchase_details_df.columns = ['purchase_id', 'product_id', 'quantity', 'shipping_cost', 'shipping_method']
-        purchase_details_df.to_sql('purchase_details', conn, if_exists='append', index=False)
-        
-        # Poblar la tabla cart_abandonment
-        cart_abandonment_df = ecom_df[['session_id', 'Product ID', 'quantity', 'abandonment_time', 'date']].drop_duplicates()
-        cart_abandonment_df.columns = ['session_id', 'product_id', 'quantity', 'abandonment_time', 'date']
-        cart_abandonment_df.to_sql('cart_abandonment', conn, if_exists='append', index=False)
-        
-        # Poblar la tabla suppliers
-        suppliers_df = ecom_df[['Supplier ID']].drop_duplicates()
-        suppliers_df.columns = ['supplier_id']
-        suppliers_df.to_sql('suppliers', conn, if_exists='append', index=False)
-        
-        # Poblar la tabla reviews
-        reviews_df = ecom_df[['reviewId', 'Product ID', 'Customer ID', 'content', 'score', 'thumbsUpCount', 'at']].drop_duplicates()
-        reviews_df.columns = ['review_id', 'product_id', 'customer_id', 'content', 'score', 'thumbs_up_count', 'at']
-        reviews_df.to_sql('reviews', conn, if_exists='append', index=False)
-        
-        # Poblar la tabla review_replies
-        review_replies_df = ecom_df[['reviewId', 'replyContent', 'at']].drop_duplicates()
-        review_replies_df.columns = ['review_id', 'reply_content', 'at']
-        review_replies_df.to_sql('review_replies', conn, if_exists='append', index=False)
-        
-        conn.commit()
-        conn.close()
-        print("✅ Datos insertados correctamente en las tablas correspondientes.")
+        try:
+            # Poblar la tabla sessions (asegurando que no haya duplicados por session_id)
+            sessions_df = ecom_df[['session_id', 'date', 'HORA', 'device_id', 'device_type', 'os', 'date_id', 'Customer ID']].drop_duplicates(subset=['session_id'])
+            sessions_df.columns = ['session_id', 'date', 'HORA', 'device_id', 'device_type', 'os', 'date_id', 'customer_id']
+            sessions_df.to_sql('sessions', conn, if_exists='replace', index=False)
+            
+            # Poblar la tabla products (asegurando que no haya duplicados por product_id)
+            products_df = ecom_df[['date', 'Product ID', 'Product Name', 'Category', 'Price', 'Discount', 'Tax', 'Stock Level', 'Supplier ID', 'Seasonality', 'Popularity']].drop_duplicates(subset=['Product ID'])
+            products_df.columns = ['date', 'product_id', 'product_name', 'category', 'price', 'discount', 'tax', 'stock_level', 'supplier_id', 'seasonality', 'popularity']
+            products_df.to_sql('products', conn, if_exists='replace', index=False)
+            
+            # Poblar la tabla customers (asegurando que no haya duplicados por customer_id)
+            customers_df = ecom_df[['Customer ID', 'Age', 'Age Group', 'Location', 'gender']].drop_duplicates(subset=['Customer ID'])
+            customers_df.columns = ['customer_id', 'age', 'age_group', 'location', 'gender']
+            customers_df.to_sql('customers', conn, if_exists='replace', index=False)
+            
+            # Poblar la tabla purchases (asegurando que no haya duplicados por purchase_id)
+            purchases_df = ecom_df[['Id_compra', 'Customer ID', 'session_id', 'date', 'HORA']].drop_duplicates(subset=['Id_compra'])
+            purchases_df.columns = ['purchase_id', 'customer_id', 'session_id', 'date', 'HORA']
+            purchases_df.to_sql('purchases', conn, if_exists='replace', index=False)
+            
+            # Para tablas con claves foráneas pero sin clave primaria única en el modelo, usamos 'append'
+            # Poblar la tabla purchase_details
+            purchase_details_df = ecom_df[['Id_compra', 'Product ID', 'quantity', 'Shipping Cost', 'Shipping Method']]
+            purchase_details_df.columns = ['purchase_id', 'product_id', 'quantity', 'shipping_cost', 'shipping_method']
+            purchase_details_df.to_sql('purchase_details', conn, if_exists='replace', index=False)
+            
+            # Poblar la tabla cart_abandonment
+            cart_abandonment_df = ecom_df[['session_id', 'Product ID', 'quantity', 'abandonment_time', 'date']]
+            cart_abandonment_df.columns = ['session_id', 'product_id', 'quantity', 'abandonment_time', 'date']
+            cart_abandonment_df.to_sql('cart_abandonment', conn, if_exists='replace', index=False)
+            
+            # Poblar la tabla suppliers (asegurando que no haya duplicados por supplier_id)
+            suppliers_df = ecom_df[['Supplier ID']].drop_duplicates()
+            suppliers_df.columns = ['supplier_id']
+            suppliers_df.to_sql('suppliers', conn, if_exists='replace', index=False)
+            
+            # Poblar la tabla reviews (asegurando que no haya duplicados por review_id)
+            reviews_df = ecom_df[['reviewId', 'Product ID', 'Customer ID', 'content', 'score', 'thumbsUpCount', 'at']].drop_duplicates(subset=['reviewId'])
+            reviews_df.columns = ['review_id', 'product_id', 'customer_id', 'content', 'score', 'thumbs_up_count', 'at']
+            reviews_df.to_sql('reviews', conn, if_exists='replace', index=False)
+            
+            # Poblar la tabla review_replies
+            review_replies_df = ecom_df[['reviewId', 'replyContent', 'at']]
+            review_replies_df.columns = ['review_id', 'reply_content', 'at']
+            review_replies_df.to_sql('review_replies', conn, if_exists='replace', index=False)
+            
+            print("✅ Datos insertados correctamente en las tablas correspondientes.")
+        except Exception as e:
+            print(f"❌ Error al poblar las tablas: {str(e)}")
+        finally:
+            conn.commit()
+            conn.close()
     
     def execute_query(self, query, params=None):
         """Ejecuta una consulta SQL y devuelve los resultados"""

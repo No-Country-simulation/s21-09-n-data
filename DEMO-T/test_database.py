@@ -5,7 +5,10 @@ db = Database()
 
 # Cargar datos desde el CSV
 db.load_data_from_csv('data/df_2.csv')
-
+#
+db._populate_sample_data()
+#
+db.populate_tables_from_ecommerce()
 # Función para probar las consultas
 def test_queries():
     print("\n🔍 Probando consultas en la base de datos...\n")
@@ -22,6 +25,7 @@ def test_queries():
     query_count = "SELECT COUNT(*) FROM ecommerse;"
     total_records = db.fetch_query(query_count)
     print(f"\n📊 Total de registros en la tabla: {total_records[0][0]}")
+
 
 # Ejecutar pruebas
 test_queries()

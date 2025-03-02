@@ -8,7 +8,7 @@ from models.database import Database
 from models.analytics import Analytics
 #from models.ml_models import MLModels
 from models.user_manager import UserManager
-#from models.inventory_manager import InventoryManager
+from models.inventory_manager import InventoryManager
 #from models.sentiment_analyzer import SentimentAnalyzer
 
 app = Flask(__name__)
@@ -16,12 +16,12 @@ CORS(app)  # Habilitar CORS para permitir peticiones desde el frontend
 
 # Inicializar componentes principales
 db = Database()
-#analytics = Analytics(db)
+analytics = Analytics(db)
 #ml_models = MLModels(db)
 user_manager = UserManager(db)
-#inventory_manager = InventoryManager(db)
+inventory_manager = InventoryManager(db)
 #sentiment_analyzer = SentimentAnalyzer(db)
-'''
+
 # Rutas para el dashboard principal
 @app.route('/api/dashboard/summary', methods=['GET'])
 def get_dashboard_summary():
@@ -67,7 +67,7 @@ def get_demographics():
 def get_purchase_patterns():
     patterns = analytics.get_purchase_patterns()
     return jsonify(patterns)
-
+''''
 # Rutas para análisis de opiniones y reviews
 @app.route('/api/reviews/sentiment', methods=['GET'])
 def get_sentiment_analysis():
