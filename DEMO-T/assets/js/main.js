@@ -27,7 +27,15 @@ const appState = {
 document.addEventListener('DOMContentLoaded', () => {
     initApp();
 });
-
+document.addEventListener("DOMContentLoaded", function () {
+    const themeToggleBtn = document.getElementById("theme-toggle-btn");
+    if (themeToggleBtn) {
+        themeToggleBtn.addEventListener("click", toggleDarkMode);
+    } else {
+        console.error("El botón de modo oscuro no se encontró en el DOM.");
+    }
+    applyThemePreference();
+});
 /**
  * Inicializa la aplicación web
  */
@@ -51,7 +59,7 @@ function initApp() {
  * Verifica si el usuario tiene una sesión válida
  */
 function checkAuthStatus() {
-    const storedUser = localStorage.getItem('user'); // <-- Cambio aquí
+    const storedUser = localStorage.getItem('user'); 
     if (storedUser) {
         appState.user = JSON.parse(storedUser);
         hideLoginModal();
@@ -991,11 +999,9 @@ function updateDashboardUI(data) {
     if (!window.dashboardCharts) {
         window.dashboardCharts = {};
     }
-    
     if (window.dashboardCharts.topProductsChart) {
         window.dashboardCharts.topProductsChart.destroy();
     }
-    
     const ctx = document.getElementById('top-products-chart').getContext('2d');
     window.dashboardCharts.topProductsChart = new Chart(ctx, {
         type: 'bar',

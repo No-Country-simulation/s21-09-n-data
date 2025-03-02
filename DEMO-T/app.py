@@ -6,22 +6,22 @@ from datetime import datetime, timedelta
 import json
 from models.database import Database
 from models.analytics import Analytics
-from models.ml_models import MLModels
+#from models.ml_models import MLModels
 from models.user_manager import UserManager
-from models.inventory_manager import InventoryManager
-from models.sentiment_analyzer import SentimentAnalyzer
+#from models.inventory_manager import InventoryManager
+#from models.sentiment_analyzer import SentimentAnalyzer
 
 app = Flask(__name__)
 CORS(app)  # Habilitar CORS para permitir peticiones desde el frontend
 
 # Inicializar componentes principales
 db = Database()
-analytics = Analytics(db)
-ml_models = MLModels(db)
+#analytics = Analytics(db)
+#ml_models = MLModels(db)
 user_manager = UserManager(db)
-inventory_manager = InventoryManager(db)
-sentiment_analyzer = SentimentAnalyzer(db)
-
+#inventory_manager = InventoryManager(db)
+#sentiment_analyzer = SentimentAnalyzer(db)
+'''
 # Rutas para el dashboard principal
 @app.route('/api/dashboard/summary', methods=['GET'])
 def get_dashboard_summary():
@@ -130,7 +130,7 @@ def get_discount_impact():
     product_id = request.args.get('product_id', None)
     impact = analytics.get_discount_impact(product_id)
     return jsonify(impact)
-
+'''
 # Rutas para gestión de usuarios
 @app.route('/api/users/login', methods=['POST'])
 def login():
@@ -143,7 +143,7 @@ def get_user_permissions():
     user_id = request.args.get('user_id')
     permissions = user_manager.get_user_permissions(user_id)
     return jsonify(permissions)
-
+'''
 # Ruta para exportar reportes
 @app.route('/api/reports/export', methods=['GET'])
 def export_report():
@@ -154,7 +154,7 @@ def export_report():
     
     report_path = analytics.generate_report(report_type, format_type, start_date, end_date)
     return send_from_directory('reports', report_path)
-
+'''
 # Iniciar la aplicación
 if __name__ == '__main__':
     app.run(debug=True, port=5000)

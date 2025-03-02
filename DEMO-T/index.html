@@ -11,33 +11,7 @@
     <link rel="stylesheet" href="assets/css/styles.css">
     <link rel="stylesheet" href="assets/css/dark-mode.css" id="dark-mode-styles" disabled>
 
-    <!-- Script para alternar modo oscuro -->
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const savedTheme = localStorage.getItem("theme") || "light";
-            document.documentElement.setAttribute("data-theme", savedTheme);
-    
-            const darkModeStyles = document.getElementById("dark-mode-styles");
-    
-            if (savedTheme === "dark") {
-                darkModeStyles.removeAttribute("disabled");
-            }
-    
-            document.getElementById("theme-toggle-btn").addEventListener("click", function () {
-                let currentTheme = document.documentElement.getAttribute("data-theme");
-                let newTheme = currentTheme === "dark" ? "light" : "dark";
-    
-                document.documentElement.setAttribute("data-theme", newTheme);
-                localStorage.setItem("theme", newTheme);
-    
-                if (newTheme === "dark") {
-                    darkModeStyles.removeAttribute("disabled");
-                } else {
-                    darkModeStyles.setAttribute("disabled", "true");
-                }
-            });
-        });
-    </script>
+
     
 </head>
 <body>
