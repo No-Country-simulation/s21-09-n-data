@@ -66,10 +66,8 @@ class InventoryManager:
             p.product_name,
             p.category,
             p.stock_level,
-            s.name as supplier_name,
-            s.contact as supplier_contact
+            p.supplier_id
         FROM products p
-        JOIN suppliers s ON p.supplier_id = s.supplier_id
         WHERE p.stock_level <= ?
         ORDER BY p.stock_level
         """
@@ -109,8 +107,6 @@ class InventoryManager:
         base_query = """
         SELECT 
             s.supplier_id,
-            s.name as supplier_name,
-            s.performance_score,
             COUNT(DISTINCT p.product_id) as products_supplied,
             AVG(p.stock_level) as avg_stock_level
         FROM suppliers s
@@ -120,19 +116,18 @@ class InventoryManager:
         # Filtrar por proveedor si se especifica
         if supplier_id:
             base_query += " WHERE s.supplier_id = ?"
-            base_query += " GROUP BY s.supplier_id, s.name, s.performance_score"
+            base_query += " GROUP BY s.supplier_id"
             result = self.db.execute_query(base_query, (supplier_id,))
         else:
-            base_query += " GROUP BY s.supplier_id, s.name, s.performance_score"
-            base_query += " ORDER BY s.performance_score DESC"
+            base_query += " GROUP BY s.supplier_id"
             result = self.db.execute_query(base_query)
         
         # Calcular métricas adicionales (simuladas para la demo)
         for i, row in result.iterrows():
             # En un sistema real, estas métricas vendrían de datos históricos reales
-            result.at[i, 'avg_delivery_time'] = round(5 - (row['performance_score'] - 3), 1)  # Días (invertido a score)
-            result.at[i, 'on_time_delivery_rate'] = min(100, int(row['performance_score'] * 20))  # Porcentaje basado en score
-            result.at[i, 'quality_issues'] = max(0, int(10 - row['performance_score'] * 2))  # Número absoluto de problemas
+            result.at[i, 'avg_delivery_time'] = round(5 - (row.get('performance_score', 3) - 3), 1)  # Días (invertido a score)
+            result.at[i, 'on_time_delivery_rate'] = min(100, int(row.get('performance_score', 3) * 20))  # Porcentaje basado en score
+            result.at[i, 'quality_issues'] = max(0, int(10 - row.get('performance_score', 3) * 2))  # Número absoluto de problemas
         
         return result.to_dict('records')
     
@@ -149,32 +144,29 @@ class InventoryManager:
             
         return {'success': True, 'message': 'Stock actualizado exitosamente', 'new_stock': new_stock}
     
+
+
     def create_restock_order(self, product_id, quantity):
         """Simula la creación de una orden de reabastecimiento"""
-        # En un sistema real, esto crearía un registro en una tabla de órdenes de compra
-        # Para la demo, simplemente devolvemos información del producto y la orden
-        
+
         query = """
         SELECT 
             p.product_id,
             p.product_name,
             p.stock_level,
-            s.supplier_id,
-            s.name as supplier_name,
-            s.contact as supplier_contact
+            p.supplier_id
         FROM products p
-        JOIN suppliers s ON p.supplier_id = s.supplier_id
         WHERE p.product_id = ?
         """
-        
+
         result = self.db.execute_query(query, (product_id,))
-        
+
         if result.empty:
             return {'success': False, 'message': 'Producto no encontrado'}
-        
+
         # Simular creación de orden
         order_id = f"ORD-{datetime.now().strftime('%Y%m%d')}-{product_id}"
-        
+
         return {
             'success': True,
             'order_id': order_id,
@@ -182,6 +174,5 @@ class InventoryManager:
             'product_name': result['product_name'].iloc[0],
             'quantity': quantity,
             'supplier_id': result['supplier_id'].iloc[0],
-            'supplier_name': result['supplier_name'].iloc[0],
             'estimated_arrival': (datetime.now() + timedelta(days=7)).strftime('%Y-%m-%d')
         }
