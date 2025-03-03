@@ -2,7 +2,6 @@ import pandas as pd
 import numpy as np
 from datetime import datetime, timedelta
 import os
-
 class Analytics:
     def __init__(self, database):
         self.db = database
@@ -84,8 +83,8 @@ class Analytics:
         
         query = f"""
         SELECT 
-            strftime('{date_format}', date) as period,
-            COUNT(DISTINCT purchase_id) as num_sales,
+            strftime('{date_format}', pur.date) as period,
+            COUNT(DISTINCT pur.purchase_id) as num_sales,
             SUM((p.price * (1 - p.discount) * (1 + p.tax)) * pd.quantity) as revenue
         FROM purchases pur
         JOIN purchase_details pd ON pur.purchase_id = pd.purchase_id
@@ -262,12 +261,12 @@ class Analytics:
         SELECT 
             CASE 
                 WHEN p.discount = 0 THEN 'Sin descuento'
-                WHEN p.discount <= 0.1 THEN '0-10%'
-                WHEN p.discount <= 0.2 THEN '11-20%'
-                WHEN p.discount <= 0.3 THEN '21-30%'
+                WHEN p.discount <= 5 THEN '0-5%'
+                WHEN p.discount <= 15 THEN '6-15%'
+                WHEN p.discount <= 25 THEN '16-25%'
                 ELSE 'Más de 30%'
             END as discount_range,
-            COUNT(DISTINCT pd.id) as sales_count,
+            COUNT(DISTINCT pd.purchase_id) as sales_count,
             SUM(pd.quantity) as units_sold,
             SUM((p.price * (1 - p.discount)) * pd.quantity) as revenue
         FROM purchase_details pd
@@ -281,9 +280,9 @@ class Analytics:
             GROUP BY discount_range
             ORDER BY CASE 
                 WHEN discount_range = 'Sin descuento' THEN 1
-                WHEN discount_range = '0-10%' THEN 2
+                WHEN discount_range = '0-5%' THEN 2
                 WHEN discount_range = '11-20%' THEN 3
-                WHEN discount_range = '21-30%' THEN 4
+                WHEN discount_range = '16-25%' THEN 4
                 ELSE 5
             END
             """
@@ -293,9 +292,9 @@ class Analytics:
             GROUP BY discount_range
             ORDER BY CASE 
                 WHEN discount_range = 'Sin descuento' THEN 1
-                WHEN discount_range = '0-10%' THEN 2
+                WHEN discount_range = '0-5%' THEN 2
                 WHEN discount_range = '11-20%' THEN 3
-                WHEN discount_range = '21-30%' THEN 4
+                WHEN discount_range = '16-25%' THEN 4
                 ELSE 5
             END
             """
