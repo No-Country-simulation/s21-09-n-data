@@ -23,11 +23,22 @@ inventory_manager = InventoryManager(db)
 #sentiment_analyzer = SentimentAnalyzer(db)
 
 # Rutas para el dashboard principal
+@app.route('/api/dashboard/date-range', methods=['GET'])
+def get_date_range():
+    start_date = analytics.get_min_date() or (datetime.now() - timedelta(days=30)).strftime('%Y-%m-%d')
+    end_date = analytics.get_max_date() or datetime.now().strftime('%Y-%m-%d')
+
+    return jsonify({
+        'startDate': start_date,
+        'endDate': end_date
+    })
+
 @app.route('/api/dashboard/summary', methods=['GET'])
 def get_dashboard_summary():
-    start_date = request.args.get('start_date', (datetime.now() - timedelta(days=30)).strftime('%Y-%m-%d'))
-    end_date = request.args.get('end_date', datetime.now().strftime('%Y-%m-%d'))
-    
+    # Obtener la fecha mínima y máxima desde la base de datos
+    start_date = request.args.get('start_date', analytics.get_min_date() or (datetime.now() - timedelta(days=30)).strftime('%Y-%m-%d'))
+    end_date = request.args.get('end_date', analytics.get_max_date() or datetime.now().strftime('%Y-%m-%d'))
+
     summary = {
         'total_sales': analytics.get_total_sales(start_date, end_date),
         'conversion_rate': analytics.get_conversion_rate(start_date, end_date),
@@ -35,13 +46,14 @@ def get_dashboard_summary():
         'total_revenue': analytics.get_total_revenue(start_date, end_date),
         'available_stock': inventory_manager.get_total_stock()
     }
-    
+
     return jsonify(summary)
+
 
 @app.route('/api/dashboard/sales_trends', methods=['GET'])
 def get_sales_trends():
-    start_date = request.args.get('start_date', (datetime.now() - timedelta(days=90)).strftime('%Y-%m-%d'))
-    end_date = request.args.get('end_date', datetime.now().strftime('%Y-%m-%d'))
+    start_date = request.args.get('start_date', analytics.get_min_date() or (datetime.now() - timedelta(days=30)).strftime('%Y-%m-%d'))
+    end_date = request.args.get('end_date', analytics.get_max_date() or datetime.now().strftime('%Y-%m-%d'))
     interval = request.args.get('interval', 'day')  # day, week, month
     
     trends = analytics.get_sales_trends(start_date, end_date, interval)
@@ -106,7 +118,7 @@ def get_product_recommendations():
     
     recommendations = ml_models.get_product_recommendations(customer_id, limit)
     return jsonify(recommendations)
-
+'''
 # Rutas para gestión de inventario
 @app.route('/api/inventory/stock', methods=['GET'])
 def get_inventory_stock():
@@ -130,7 +142,7 @@ def get_discount_impact():
     product_id = request.args.get('product_id', None)
     impact = analytics.get_discount_impact(product_id)
     return jsonify(impact)
-'''
+
 # Rutas para gestión de usuarios
 @app.route('/api/users/login', methods=['POST'])
 def login():

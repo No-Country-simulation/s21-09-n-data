@@ -5,10 +5,35 @@
 
 // Configuración global
 const API_BASE_URL = 'http://localhost:5000/api';
+
+// Inicializa el objeto sin valores reales
 let currentDateRange = {
-    startDate: new Date(new Date().setDate(new Date().getDate() - 30)).toISOString().split('T')[0],
-    endDate: new Date().toISOString().split('T')[0]
+    startDate: "",
+    endDate: ""
 };
+
+// Función para obtener las fechas desde el backend
+async function fetchDateRange() {
+    try {
+        const response = await fetch(`${API_BASE_URL}/dashboard/date-range`);
+        const data = await response.json();
+
+        // Asigna las fechas obtenidas
+        currentDateRange.startDate = data.startDate;
+        currentDateRange.endDate = data.endDate;
+
+        // Actualiza los inputs con las fechas
+        document.getElementById("start-date").value = data.startDate;
+        document.getElementById("end-date").value = data.endDate;
+        
+        console.log("Fechas cargadas desde la API:", currentDateRange);
+    } catch (error) {
+        console.error("Error al obtener el rango de fechas:", error);
+    }
+}
+
+// Llama a la función de inmediato para actualizar las fechas
+fetchDateRange();
 
 // Cache para datos y configuraciones de usuario
 const appState = {
@@ -22,11 +47,12 @@ const appState = {
     darkMode: false,
     sidebarCollapsed: false
 };
-
+ 
 // Inicialización de la aplicación
 document.addEventListener('DOMContentLoaded', () => {
     initApp();
 });
+
 document.addEventListener("DOMContentLoaded", function () {
     const themeToggleBtn = document.getElementById("theme-toggle-btn");
     if (themeToggleBtn) {
@@ -533,62 +559,7 @@ function loadInventoryPage() {
     if (inventoryPage.innerHTML) {
         updateInventoryData();
         return;
-    }
-    
-    // Cargar contenido HTML para la página de inventario
-    inventoryPage.innerHTML = `
-        <div class="row">
-            <div class="col-md-8">
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-title">Stock por Categoría</h5>
-                        <div class="card-tools">
-                            <select id="stock-category-filter" class="form-select form-select-sm">
-                                <option value="">Todas las categorías</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div id="inventory-stock-chart" class="chart-container"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-title">Alertas de Stock</h5>
-                    </div>
-                    <div class="card-body">
-                        <ul class="alert-list" id="stock-alerts">
-                            <li class="alert-loading">Cargando alertas...</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="row mt-4">
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-title">Rendimiento de Proveedores</h5>
-                    </div>
-                    <div class="card-body">
-                        <div id="supplier-performance-chart" class="chart-container"></div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card">
-                    <div class="card-header">
-                        <h5 class="card-title">Impacto de Descuentos</h5>
-                    </div>
-                    <div class="card-body">
-                        <div id="discount-impact-chart" class="chart-container"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    `;
+    };
     
     // Inicializar datos y gráficos de inventario
     initInventoryCharts();

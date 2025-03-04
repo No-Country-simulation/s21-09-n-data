@@ -51,7 +51,7 @@ class SentimentAnalyzer:
         
         # Determinar sentimiento basado en puntaje
         reviews['sentiment'] = reviews['score'].apply(
-            lambda x: 'Positivo' if x >= 4 else ('Neutral' if x >= 3 else 'Negativo')
+            lambda x: 'Positivo' if x >= 8 else ('Neutral' if x >= 7 else 'Negativo')
         )
         
         # Distribución de sentimiento

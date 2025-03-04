@@ -10,6 +10,18 @@ print(resultado)
 resultado2 = analytics.get_conversion_rate("2023-01-01", "2024-01-01")
 print(resultado2)
 
+resultado3 = analytics.get_min_date()
+print(resultado3)
+resultado4 = analytics.get_max_date()
+print(resultado4)
+
+'''
+resultado = analytics.get_total_sales("2023-01-01", "2024-01-01")
+print(resultado)
+
+resultado2 = analytics.get_conversion_rate("2023-01-01", "2024-01-01")
+print(resultado2)
+
 resultado3 = analytics.get_top_products("2023-01-01", "2024-01-01")
 print(resultado3)
 
@@ -34,3 +46,4 @@ print(resultado9)
 resultado10 = analytics.get_discount_impact()
 print(resultado10)
 
+'''

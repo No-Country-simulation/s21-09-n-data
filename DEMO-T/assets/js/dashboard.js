@@ -36,6 +36,7 @@ class Dashboard {
         this.intervalButtons = document.querySelectorAll('[data-interval]');
         
         // Inicializar fechas predeterminadas
+        /*
         const today = new Date();
         const thirtyDaysAgo = new Date();
         thirtyDaysAgo.setDate(today.getDate() - 30);
@@ -44,6 +45,7 @@ class Dashboard {
         this.endDateInput.value = this.formatDate(today);
         
         this.currentInterval = 'day';
+        */
     }
 
     /**

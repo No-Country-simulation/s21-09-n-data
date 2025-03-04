@@ -5,6 +5,26 @@ import os
 class Analytics:
     def __init__(self, database):
         self.db = database
+        
+    def get_max_date(self):
+        """Obtiene la fecha máxima de la tabla purchases en formato '%Y-%m-%d'"""
+        query = """
+        SELECT MAX(date) as max_date FROM purchases
+        """
+        result = self.db.execute_query(query)
+        if not result.empty and result['max_date'][0] is not None:
+            return datetime.strptime(str(result['max_date'][0]), "%Y-%m-%d %H:%M:%S").strftime("%Y-%m-%d")
+        return None
+    
+    def get_min_date(self):
+        """Obtiene la fecha mínima de la tabla purchases en formato '%Y-%m-%d'"""
+        query = """
+        SELECT MIN(date) as min_date FROM purchases
+        """
+        result = self.db.execute_query(query)
+        if not result.empty and result['min_date'][0] is not None:
+            return datetime.strptime(str(result['min_date'][0]), "%Y-%m-%d %H:%M:%S").strftime("%Y-%m-%d")
+        return None
     
     def get_total_sales(self, start_date, end_date):
         """Obtiene el total de ventas en un período de tiempo"""
