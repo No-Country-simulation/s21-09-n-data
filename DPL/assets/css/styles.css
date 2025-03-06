@@ -498,6 +498,7 @@ body.dark-mode .card {
 body.dark-mode .dropdown-menu {
     background-color: var(--card-bg);
     border-color: var(--border-color);
+    color: var(--text-color);
 }
 
 body.dark-mode .dropdown-item {
@@ -572,4 +573,7 @@ body.dark-mode .welcome-section {
 body.dark-mode .feature-icon,
 body.dark-mode .stats-counter {
     color: var(--primary-color);
+}
+body.dark-mode .user-name{
+    color: var(--text-color);
 }
