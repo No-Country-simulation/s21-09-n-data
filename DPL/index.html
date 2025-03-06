@@ -10,7 +10,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.35.3/apexcharts.min.css">
     <link rel="stylesheet" href="assets/css/styles.css">
     <style>
-
+        .sidebar-header h3 {
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
@@ -18,19 +20,13 @@
         <!-- Sidebar -->
         <aside class="sidebar" id="sidebar">
             <div class="sidebar-header">
-                <h3>E-Commerce Analytics</h3>
+                <h3 id="logo-home">E-Commerce Analytics</h3>
                 <button class="btn-toggle-sidebar" id="toggleSidebar">
                     <i class="fas fa-bars"></i>
                 </button>
             </div>
             <div class="sidebar-content">
                 <ul class="nav flex-column">
-                    <li class="nav-item active" data-page="home">
-                        <a class="nav-link">
-                            <i class="fas fa-home"></i>
-                            <span>Home</span>
-                        </a>
-                    </li>
                     <li class="nav-item" data-page="dashboard">
                         <a class="nav-link">
                             <i class="fas fa-tachometer-alt"></i>
@@ -357,11 +353,21 @@
         const gotoDashboardBtn = document.getElementById('goto-dashboard');
         const themeToggleBtn = document.getElementById('theme-toggle-btn');
         const logoutBtn = document.getElementById('logout-btn');
+        const logoHome = document.getElementById('logo-home');
+    
+        // Evento para el logo que lleva al home
+        logoHome.addEventListener('click', function() {
+            changePage('home');
+        });
     
         // Función para cambiar de página
         function changePage(pageId) {
             // Actualizar título de la página
-            pageTitle.textContent = document.querySelector(`[data-page="${pageId}"]`).querySelector('span').textContent;
+            if (pageId === 'home') {
+                pageTitle.textContent = 'Home';
+            } else {
+                pageTitle.textContent = document.querySelector(`[data-page="${pageId}"]`).querySelector('span').textContent;
+            }
             
             // Ocultar todas las páginas
             pages.forEach(page => {
@@ -375,7 +381,10 @@
             navItems.forEach(item => {
                 item.classList.remove('active');
             });
-            document.querySelector(`[data-page="${pageId}"]`).classList.add('active');
+            
+            if (pageId !== 'home') {
+                document.querySelector(`[data-page="${pageId}"]`).classList.add('active');
+            }
             
             // Mostrar u ocultar la sidebar dependiendo de la página
             if (pageId === 'home') {
@@ -468,3 +477,5 @@
         updateCounters();
     });
     </script>
+</body>
+</html>
