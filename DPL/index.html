@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Commerce Analytics - Home</title>
+    <!-- Estilos CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.35.3/apexcharts.min.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <style>
+
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h3>E-Commerce Analytics</h3>
+                <button class="btn-toggle-sidebar" id="toggleSidebar">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            <div class="sidebar-content">
+                <ul class="nav flex-column">
+                    <li class="nav-item active" data-page="home">
+                        <a class="nav-link">
+                            <i class="fas fa-home"></i>
+                            <span>Home</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-page="dashboard">
+                        <a class="nav-link">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span>Dashboard Principal</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-page="customer">
+                        <a class="nav-link">
+                            <i class="fas fa-users"></i>
+                            <span>Comportamiento Cliente</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-page="reviews">
+                        <a class="nav-link">
+                            <i class="fas fa-comments"></i>
+                            <span>Análisis de Reviews</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-page="ml">
+                        <a class="nav-link">
+                            <i class="fas fa-robot"></i>
+                            <span>Machine Learning</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-page="inventory">
+                        <a class="nav-link">
+                            <i class="fas fa-boxes"></i>
+                            <span>Inventario</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-page="settings">
+                        <a class="nav-link">
+                            <i class="fas fa-cog"></i>
+                            <span>Configuraciones</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Contenido principal -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-left">
+                    <h2 id="page-title">Home</h2>
+                </div>
+                <div class="header-right">
+                    <div class="theme-toggle">
+                        <button id="theme-toggle-btn" class="btn btn-outline-secondary btn-sm">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                    </div>
+                    <div class="user-profile">
+                        <div class="dropdown">
+                            <button class="btn dropdown-toggle" type="button" id="userMenu" data-bs-toggle="dropdown">
+                                <img src="assets\img\user1.jpg" alt="User" class="user-avatar">
+                                <span class="user-name">Admin</span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
+                                <li><a class="dropdown-item" href="#"><i class="fas fa-user"></i> Perfil</a></li>
+                                <li><a class="dropdown-item" href="#"><i class="fas fa-cog"></i> Preferencias</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Contenedor de páginas -->
+            <div class="page-container">
+                <!-- Home Page -->
+                <div class="page active" id="home-page">
+                    <!-- Sección de bienvenida -->
+                    <div class="welcome-section">
+                        <div class="row align-items-center">
+                            <div class="col-md-7">
+                                <h2 class="mb-3">¡Bienvenido a su Panel de E-Commerce Analytics!</h2>
+                                <p class="lead mb-4">Analiza, gestiona y optimiza tu tienda online con herramientas avanzadas de análisis y machine learning.</p>
+                                <p class="mb-4">Desde el seguimiento de ventas en tiempo real hasta predicciones de comportamiento de clientes, nuestra plataforma te ofrece todas las herramientas para aumentar tus conversiones y mejorar la experiencia del usuario.</p>
+                                <button class="btn btn-primary btn-get-started" id="goto-dashboard">
+                                    Ir al Dashboard <i class="fas fa-arrow-right ms-2"></i>
+                                </button>
+                            </div>
+                            <div class="col-md-5">
+                                <img src="assets\img\logo.jpeg" alt="Analytics Dashboard" class="hero-image">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Estadísticas rápidas -->
+                    <div class="row mb-4">
+                        <div class="col-md-3">
+                            <div class="card text-center p-3">
+                                <div class="stats-counter" id="total-orders">3,451</div>
+                                <div class="stats-label">Pedidos Totales</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card text-center p-3">
+                                <div class="stats-counter" id="total-customers">1,287</div>
+                                <div class="stats-label">Clientes Activos</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card text-center p-3">
+                                <div class="stats-counter" id="avg-rating">4.7</div>
+                                <div class="stats-label">Valoración Media</div>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="card text-center p-3">
+                                <div class="stats-counter" id="products-count">258</div>
+                                <div class="stats-label">Productos Activos</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Secciones principales -->
+                    <h3 class="mb-4">Características Principales</h3>
+                    <div class="row mb-4">
+                        <div class="col-md-4 mb-4">
+                            <div class="card feature-card p-4">
+                                <div class="text-center feature-icon">
+                                    <i class="fas fa-tachometer-alt"></i>
+                                </div>
+                                <h4 class="text-center mb-3">Dashboard Principal</h4>
+                                <p>Visualiza tus métricas clave de rendimiento de un vistazo. Monitorea ventas, conversiones, ingresos y stock en tiempo real.</p>
+                                <div class="mt-auto text-center">
+                                    <button class="btn btn-outline-primary mt-3" data-page="dashboard">Ver Dashboard</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="card feature-card p-4">
+                                <div class="text-center feature-icon">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <h4 class="text-center mb-3">Análisis de Clientes</h4>
+                                <p>Comprende el comportamiento de tus clientes. Analiza patrones de compra, abandonos de carrito y demografía.</p>
+                                <div class="mt-auto text-center">
+                                    <button class="btn btn-outline-primary mt-3" data-page="customer">Explorar Clientes</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="card feature-card p-4">
+                                <div class="text-center feature-icon">
+                                    <i class="fas fa-comments"></i>
+                                </div>
+                                <h4 class="text-center mb-3">Análisis de Reviews</h4>
+                                <p>Evalúa el feedback de tus clientes con análisis de sentimiento avanzado. Identifica tendencias en opiniones y mejora tus productos.</p>
+                                <div class="mt-auto text-center">
+                                    <button class="btn btn-outline-primary mt-3" data-page="reviews">Ver Reviews</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="card feature-card p-4">
+                                <div class="text-center feature-icon">
+                                    <i class="fas fa-robot"></i>
+                                </div>
+                                <h4 class="text-center mb-3">Machine Learning</h4>
+                                <p>Aprovecha el poder de la IA para predecir comportamientos, segmentar clientes y mejorar las recomendaciones de productos.</p>
+                                <div class="mt-auto text-center">
+                                    <button class="btn btn-outline-primary mt-3" data-page="ml">Explorar ML</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="card feature-card p-4">
+                                <div class="text-center feature-icon">
+                                    <i class="fas fa-boxes"></i>
+                                </div>
+                                <h4 class="text-center mb-3">Gestión de Inventario</h4>
+                                <p>Optimiza tu inventario con análisis predictivo. Controla niveles de stock, identifica tendencias y evita roturas de stock.</p>
+                                <div class="mt-auto text-center">
+                                    <button class="btn btn-outline-primary mt-3" data-page="inventory">Ver Inventario</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="card feature-card p-4">
+                                <div class="text-center feature-icon">
+                                    <i class="fas fa-cog"></i>
+                                </div>
+                                <h4 class="text-center mb-3">Configuraciones</h4>
+                                <p>Personaliza tu experiencia según tus necesidades. Configura alertas, preferencias de visualización y gestiona usuarios.</p>
+                                <div class="mt-auto text-center">
+                                    <button class="btn btn-outline-primary mt-3" data-page="settings">Configurar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+   
+                </div>
+                
+                <!-- Dashboard Page -->
+                <div class="page" id="dashboard-page">
+                    <div class="powerbi-container">
+                        <iframe src="https://app.powerbi.com/view?r=eyJrIjoiMmU0MDE3ODQtMzdlYy00MmZmLThkYzMtNjUzZmZkYjE0NTgzIiwidCI6Ijk4MjAxZmVmLWQ5ZjYtNGU2OC04NGY1LWMyNzA1MDc0ZTM0MiIsImMiOjR9&pageName=5f4995cda04b8ea05b05"></iframe>
+                    </div>
+                </div>
+                
+                <!-- Customer Page -->
+                <div class="page" id="customer-page">
+                    <div class="powerbi-container">
+                        <iframe src="https://app.powerbi.com/view?r=eyJrIjoiMmU0MDE3ODQtMzdlYy00MmZmLThkYzMtNjUzZmZkYjE0NTgzIiwidCI6Ijk4MjAxZmVmLWQ5ZjYtNGU2OC04NGY1LWMyNzA1MDc0ZTM0MiIsImMiOjR9&pageName=5f4995cda04b8ea05b05"></iframe>
+                    </div>
+                </div>
+                
+                <!-- Reviews Page -->
+                <div class="page" id="reviews-page">
+                    <div class="powerbi-container">
+                        <iframe src="https://app.powerbi.com/view?r=eyJrIjoiMmU0MDE3ODQtMzdlYy00MmZmLThkYzMtNjUzZmZkYjE0NTgzIiwidCI6Ijk4MjAxZmVmLWQ5ZjYtNGU2OC04NGY1LWMyNzA1MDc0ZTM0MiIsImMiOjR9&pageName=81d37201230b6c7c20a0"></iframe>
+                    </div>
+                </div>
+                
+                <!-- ML Page -->
+                <div class="page" id="ml-page">
+                    <iframe src="index.html" style="width: 100%; height: 800px; border: none;"></iframe>
+                </div>
+                
+                <!-- Inventory Page -->
+                <div class="page" id="inventory-page">
+                    <div class="powerbi-container">
+                        <iframe src="https://app.powerbi.com/view?r=eyJrIjoiMmU0MDE3ODQtMzdlYy00MmZmLThkYzMtNjUzZmZkYjE0NTgzIiwidCI6Ijk4MjAxZmVmLWQ5ZjYtNGU2OC04NGY1LWMyNzA1MDc0ZTM0MiIsImMiOjR9&pageName=5f4995cda04b8ea05b05"></iframe>
+                    </div>
+                </div>
+                
+                <!-- Settings Page -->
+                <div class="page" id="settings-page">
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title">Configuración General</h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-4">
+                                <h6>Apariencia</h6>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="darkModeSwitch">
+                                    <label class="form-check-label" for="darkModeSwitch">Modo Oscuro</label>
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <h6>Notificaciones</h6>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="emailNotifications" checked>
+                                    <label class="form-check-label" for="emailNotifications">Notificaciones por Email</label>
+                                </div>
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="pushNotifications" checked>
+                                    <label class="form-check-label" for="pushNotifications">Notificaciones Push</label>
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <h6>Preferencias del Dashboard</h6>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="showRevenue" checked>
+                                    <label class="form-check-label" for="showRevenue">Mostrar ingresos</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="showConversions" checked>
+                                    <label class="form-check-label" for="showConversions">Mostrar conversiones</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" id="showVisitors" checked>
+                                    <label class="form-check-label" for="showVisitors">Mostrar visitantes</label>
+                                </div>
+                            </div>
+                            <button class="btn btn-primary">Guardar Configuración</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <footer class="footer">
+                <p>&copy; 2025 E-Commerce Analytics Dashboard</p>
+            </footer>
+        </main>
+    </div>
+
+    <!-- Ventana modal de login -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Iniciar sesión</h5>
+                </div>
+                <div class="modal-body">
+                    <form id="login-form">
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Usuario</label>
+                            <input type="text" class="form-control" id="username" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Contraseña</label>
+                            <input type="password" class="form-control" id="password" required>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">Acceder</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.35.3/apexcharts.min.js"></script>
+
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Referencias a elementos
+        const sidebar = document.getElementById('sidebar');
+        const toggleSidebarBtn = document.getElementById('toggleSidebar');
+        const navItems = document.querySelectorAll('.nav-item');
+        const pageTitle = document.getElementById('page-title');
+        const pages = document.querySelectorAll('.page');
+        const gotoDashboardBtn = document.getElementById('goto-dashboard');
+        const themeToggleBtn = document.getElementById('theme-toggle-btn');
+        const logoutBtn = document.getElementById('logout-btn');
+    
+        // Función para cambiar de página
+        function changePage(pageId) {
+            // Actualizar título de la página
+            pageTitle.textContent = document.querySelector(`[data-page="${pageId}"]`).querySelector('span').textContent;
+            
+            // Ocultar todas las páginas
+            pages.forEach(page => {
+                page.classList.remove('active');
+            });
+            
+            // Mostrar la página seleccionada
+            document.getElementById(`${pageId}-page`).classList.add('active');
+            
+            // Actualizar item activo en el menú
+            navItems.forEach(item => {
+                item.classList.remove('active');
+            });
+            document.querySelector(`[data-page="${pageId}"]`).classList.add('active');
+            
+            // Mostrar u ocultar la sidebar dependiendo de la página
+            if (pageId === 'home') {
+                sidebar.classList.add('hidden');
+            } else {
+                sidebar.classList.remove('hidden');
+            }
+        }
+    
+        // Evento para el botón de toggle sidebar
+        toggleSidebarBtn.addEventListener('click', function() {
+            sidebar.classList.toggle('collapsed');
+        });
+    
+        // Evento para navegar entre páginas
+        navItems.forEach(item => {
+            item.addEventListener('click', function() {
+                const pageId = this.getAttribute('data-page');
+                changePage(pageId);
+            });
+        });
+    
+        // Evento para el botón "Ir al Dashboard"
+        gotoDashboardBtn.addEventListener('click', function() {
+            changePage('dashboard');
+        });
+    
+        // Botones de características en la página de inicio
+        document.querySelectorAll('.feature-card button').forEach(button => {
+            button.addEventListener('click', function() {
+                const pageId = this.getAttribute('data-page');
+                changePage(pageId);
+            });
+        });
+    
+        // Cambio de tema (modo oscuro/claro)
+        themeToggleBtn.addEventListener('click', function() {
+            document.body.classList.toggle('dark-mode');
+            const icon = this.querySelector('i');
+            if (document.body.classList.contains('dark-mode')) {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            }
+        });
+    
+        // Evento para el botón de cerrar sesión (simulado)
+        logoutBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            alert('Sesión cerrada con éxito');
+        });
+    
+        // Inicializar la página actual (empezamos en home)
+        changePage('home');
+    
+        // Simulación de datos en tiempo real
+        function updateCounters() {
+            const totalOrders = document.getElementById('total-orders');
+            const totalCustomers = document.getElementById('total-customers');
+            const avgRating = document.getElementById('avg-rating');
+            const productsCount = document.getElementById('products-count');
+            
+            // Simular pequeños cambios en los datos
+            let orders = parseInt(totalOrders.textContent.replace(',', ''));
+            orders += Math.floor(Math.random() * 5);
+            totalOrders.textContent = orders.toLocaleString();
+            
+            let customers = parseInt(totalCustomers.textContent.replace(',', ''));
+            if (Math.random() > 0.7) {
+                customers += 1;
+                totalCustomers.textContent = customers.toLocaleString();
+            }
+            
+            // Simulación de PowerBI embebido
+            const iframes = document.querySelectorAll('.powerbi-container iframe');
+            iframes.forEach(iframe => {
+                // Asegurarse de que los iframes se carguen correctamente
+                iframe.onload = function() {
+                    console.log('PowerBI report loaded successfully');
+                };
+            });
+        }
+        
+        // Actualizar datos cada 5 segundos
+        setInterval(updateCounters, 5000);
+        
+        // Inicializar contadores
+        updateCounters();
+    });
+    </script>
