@@ -52,11 +52,11 @@ Tener datos precisos sobre el funcionamiento de tu negocio en linea es esencial 
 5.	Evaluación del modelo: Se evaluó el rendimiento del modelo utilizando métricas como precisión, recall, F1-score y matriz de confusión.
 6.	Despliegue: El modelo se desplegó en una aplicación web utilizando Flask y se integró con un tablero en Power BI para visualizar los 
 
-<br>Puedes encontrar mucho más sobre la gestión de este proyecto en la sección [Metodología](https://github.com/No-Country-simulation/equipo-s20-08-data/blob/main/DOC/metodologia.md)
+<br>Puedes encontrar mucho más sobre la gestión de este proyecto en la sección [Metodología](https://github.com/No-Country-simulation/s21-09-n-data/blob/main/DOC/metodologia.md)
 
 ## Esquema General de Trabajo 
-Este documento presenta un proyecto de detección de fraudes en transacciones financieras, siguiendo rigurosamente la metodología CRISP-DM. Desde la comprensión del negocio hasta el despliegue del modelo, se detalla cada una de las fases del proyecto, ofreciendo una visión completa del proceso de desarrollo de un modelo de machine learning.<br>
-Puedes encontrar mucho más sobre el esquema de trabajo de este proyecto en la sección [Esquema General de Trabajo](https://github.com/No-Country-simulation/equipo-s20-08-data/blob/main/DOC/Esquema_General_de_trabajo.md)
+Este documento presenta un proyecto para realizar analisis de datos referidos a plataformas de e-commerce, siguiendo rigurosamente la metodología CRISP-DM. Desde la comprensión del negocio hasta el despliegue del modelo, se detalla cada una de las fases del proyecto, ofreciendo una visión completa del proceso de desarrollo de un modelo de machine learning.<br>
+Puedes encontrar mucho más sobre el esquema de trabajo de este proyecto en la sección [Esquema General de Trabajo](https://github.com/No-Country-simulation/s21-09-n-data/blob/main/DOC/Esquema_General_de_trabajo.md)
 
 ## Organización  
 Este proyecto se desarrolló mediante una colaboración estrecha entre un equipo multidisciplinario. Partiendo de un planificacion detallada y el uso de las herramientas mencionadas a continuación, se logró una gestión eficiente del proyecto. El buen uso de estas herramientas fue fundamental para mantener una bitácora detallada de las actividades realizadas, los avances alcanzados y los desafíos enfrentados. 
