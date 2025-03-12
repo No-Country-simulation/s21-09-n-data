@@ -182,6 +182,7 @@ body {
     overflow-y: auto;
     padding: 20px;
 }
+
 .page {
     display: none;
 }
@@ -384,12 +385,14 @@ body {
     height: calc(100vh - 140px);
     border-radius: 8px;
     overflow: hidden;
+    
 }
 
 .powerbi-container iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
+    transform: scale(0.756);
+    transform-origin: top left;
+    width: 1980px;
+    height: 1080px;
 }
 
 .sidebar-header h3 {

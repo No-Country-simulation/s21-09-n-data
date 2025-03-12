@@ -689,7 +689,13 @@
                 navigateTo('dashboard');
             });
         }
-                
+        // Botones de características en la página de inicio
+        document.querySelectorAll('.feature-card button').forEach(button => {
+            button.addEventListener('click', function() {
+                const pageId = this.getAttribute('data-page');
+                navigateTo(pageId);
+            });
+        });              
         // Cambiar tema
         themeToggleBtn.addEventListener('click', function() {
             document.body.classList.toggle('dark-mode');
