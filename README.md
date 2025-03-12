@@ -22,10 +22,10 @@ Además, se realizan análisis avanzados como segmentación de clientes, anális
   <tbody>
     <tr>
       <td><b>Gabriela Pardo</b></td>
-      <td>Data Analist</td>
+      <td>Data Analyst</td>
      </tr>
       <td><b>Diego Borges</b></td>
-      <td>Data Analist</td>
+      <td>Data Analyst</td>
       </tr>    
       <td><b>José Manuel Ardiles Ugaz</b></td>
       <td>Data Scientist</td>
