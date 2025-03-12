@@ -111,7 +111,7 @@
                         </div>
                         <div class="col-md-4">
                             <div class="card text-center p-3">
-                                <div class="stats-counter" id="total-customers">1,000</div>
+                                <div class="stats-counter" id="total-customers">1000000</div>
                                 <div class="stats-label">Clientes Activos</div>
                             </div>
                         </div>
@@ -576,6 +576,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.35.3/apexcharts.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <script>
     // Funcionalidad de navegación
@@ -843,20 +845,143 @@
         
         // Exportar datos
         if (exportDataBtn) {
-            exportDataBtn.addEventListener('click', function() {
-                // Simular proceso de exportación
+            exportDataBtn.addEventListener('click', async function() {
+                // Mostrar estado de carga
                 const btn = this;
                 btn.disabled = true;
                 btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Exportando...';
                 
-                setTimeout(() => {
+                try {
+                    // Verificar si hay una página activa o visible
+                    let activePage = null;
+                    
+                    // Intenta diferentes métodos para obtener la página activa
+                    const pages = document.querySelectorAll('.page');
+                    for (let page of pages) {
+                        // Verifica el estilo de visualización
+                        const style = window.getComputedStyle(page);
+                        if (style.display !== 'none') {
+                            activePage = page;
+                            break;
+                        }
+                    }
+                    
+                    // Si no encontramos ninguna página visible, tomamos la primera
+                    if (!activePage && pages.length > 0) {
+                        activePage = pages[0];
+                    }
+                    
+                    if (!activePage) {
+                        throw new Error("No se encontró ninguna página activa");
+                    }
+                    
+                    console.log("Página activa encontrada:", activePage.id);
+                    
+                    // Buscar el iframe que corresponda a la página activa
+                    // En lugar de buscar solo en la página activa, buscaremos en todo el documento
+                    // y asociaremos el iframe correcto según alguna lógica de tu aplicación
+                    
+                    let iframeToUse = null;
+                    const allIframes = document.querySelectorAll('iframe');
+                    
+                    if (allIframes.length === 0) {
+                        throw new Error("No se encontró ningún iframe en el documento");
+                    }
+                    
+                    // Para la página de configuraciones, podemos tener una lógica específica
+                    if (activePage.id === 'settings-page') {
+                        // Aquí puedes elegir cuál de los iframes usar para esta página específica
+                        // Por ejemplo, usar el primer iframe disponible o uno con un ID/clase específico
+                        iframeToUse = allIframes[0]; // O usar un iframe específico basado en tu lógica
+                    } else {
+                        // Para otras páginas, intentamos encontrar el iframe dentro de la página activa
+                        iframeToUse = activePage.querySelector('iframe');
+                        
+                        // Si no hay iframe en la página activa, usar el primero disponible
+                        if (!iframeToUse && allIframes.length > 0) {
+                            iframeToUse = allIframes[0];
+                        }
+                    }
+                    
+                    if (!iframeToUse) {
+                        throw new Error("No se pudo determinar qué iframe utilizar para la exportación");
+                    }
+                    
+                    console.log("Iframe seleccionado para exportación:", iframeToUse.src);
+                    
+                    // Crear título del reporte basado en la página activa
+                    const reportTitle = activePage.id.replace('-page', '').replace(/-/g, ' ');
+                    const capitalizedTitle = reportTitle.charAt(0).toUpperCase() + reportTitle.slice(1);
+                    
+                    // Crear el PDF directamente con los datos del iframe
+                    const { jsPDF } = window.jspdf;
+                    const pdf = new jsPDF('landscape');
+                    
+                    // Añadir título y metadatos
+                    pdf.setFontSize(18);
+                    pdf.text(`Reporte: ${capitalizedTitle}`, 14, 20);
+                    
+                    pdf.setFontSize(12);
+                    pdf.text(`Fecha de exportación: ${new Date().toLocaleDateString()}`, 14, 30);
+                    pdf.text(`URL del reporte: ${iframeToUse.src}`, 14, 40);
+                    
+                    // Añadir nota sobre visualización
+                    pdf.setFontSize(10);
+                    const noteText = "Nota: Este PDF contiene un enlace al reporte interactivo de Power BI. " +
+                                    "Para acceder a las funcionalidades completas del reporte, acceda al enlace original.";
+                    
+                    const splitNote = pdf.splitTextToSize(noteText, pdf.internal.pageSize.getWidth() - 40);
+                    pdf.text(splitNote, 14, 50);
+                    
+                    // Agregar captura del QR para acceso rápido
+                    try {
+                        // Generar un QR con la URL del iframe (opcional)
+                        const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(iframeToUse.src)}`;
+                        pdf.addImage(qrCodeUrl, 'PNG', 14, 70, 50, 50);
+                        pdf.setFontSize(8);
+                        pdf.text("Escanee este código QR para acceder al reporte interactivo", 14, 125);
+                    } catch (qrError) {
+                        console.error("Error al generar QR:", qrError);
+                        // Continuar sin el QR si falla
+                    }
+                    
+                    // Añadir sección de instrucciones
+                    pdf.setFontSize(12);
+                    pdf.text("Instrucciones para acceder al reporte completo:", 14, 140);
+                    
+                    pdf.setFontSize(10);
+                    const instructions = [
+                        "1. Abra su navegador web e ingrese la URL mencionada anteriormente",
+                        "2. Espere a que cargue el reporte interactivo de Power BI",
+                        "3. Utilice los filtros y opciones interactivas para analizar los datos"
+                    ];
+                    
+                    let yPos = 150;
+                    instructions.forEach(instruction => {
+                        pdf.text(instruction, 14, yPos);
+                        yPos += 10;
+                    });
+                    
+                    // Guardar el PDF
+                    const pageName = activePage.id.replace('-page', '');
+                    pdf.save(`reporte-${pageName}.pdf`);
+                    
+                    // Mostrar modal de éxito
+                    if (typeof exportSuccessModal !== 'undefined' && exportSuccessModal) {
+                        exportSuccessModal.show();
+                    } else {
+                        alert("Reporte exportado con éxito. El PDF contiene el enlace al reporte interactivo.");
+                    }
+                } catch (error) {
+                    console.error("Error al exportar a PDF:", error);
+                    alert("Error al exportar: " + error.message);
+                } finally {
+                    // Restaurar el botón
                     btn.disabled = false;
                     btn.innerHTML = '<i class="fas fa-download me-2"></i>Exportar Ahora';
-                    exportSuccessModal.show();
-                }, 2000);
+                }
             });
         }
-        
         // Guardar configuración
         if (saveSettingsBtn) {
             saveSettingsBtn.addEventListener('click', function() {
