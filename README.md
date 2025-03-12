@@ -1,6 +1,6 @@
 ### Análisis de Datos de e-commerce: Una plataforma basado en Análisis de Datos y Machine Learning
 ### 
-<p align=center><img src=SRC/frente.jpg width=900px heigth=100px><p>
+<p align=center><img src=DOC/frente.jpg width=900px heigth=100px><p>
 
 ## 📌 Introducción
 La empresa se dedica al análisis de datos para e-commerce, ofreciendo servicios personalizados basados en los datos que el cliente comparte o que la empresa obtiene mediante técnicas como scraping o acceso a bases de datos.
@@ -52,7 +52,7 @@ Tener datos precisos sobre el funcionamiento de tu negocio en linea es esencial 
 5.	Evaluación del modelo: Se evaluó el rendimiento del modelo utilizando métricas como precisión, recall, F1-score y matriz de confusión.
 6.	Despliegue: El modelo se desplegó en una aplicación web utilizando Flask y se integró con un tablero en Power BI para visualizar los 
 
-
+<br>Puedes encontrar mucho más sobre la gestión de este proyecto en la sección [Metodología](https://github.com/No-Country-simulation/equipo-s20-08-data/blob/main/DOC/metodologia.md)
 
 ## Esquema General de Trabajo 
 Este documento presenta un proyecto de detección de fraudes en transacciones financieras, siguiendo rigurosamente la metodología CRISP-DM. Desde la comprensión del negocio hasta el despliegue del modelo, se detalla cada una de las fases del proyecto, ofreciendo una visión completa del proceso de desarrollo de un modelo de machine learning.<br>
