@@ -1,6 +1,10 @@
 ### Análisis de Datos de e-commerce: Una plataforma basado en Análisis de Datos y Machine Learning
 ### 
+<<<<<<< HEAD
 <p align=center><img src=src/frente.jpg width=900px heigth=100px><p>
+=======
+<p align=center><img src=DOC/frente.jpg width=900px heigth=100px><p>
+>>>>>>> 0ddec54b3e377f690bf36aee3e38033b7ab83b22
 
 ## 📌 Introducción
 La empresa se dedica al análisis de datos para e-commerce, ofreciendo servicios personalizados basados en los datos que el cliente comparte o que la empresa obtiene mediante técnicas como scraping o acceso a bases de datos.
