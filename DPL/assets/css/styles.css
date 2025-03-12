@@ -53,6 +53,7 @@ body {
 .sidebar.hidden {
     width: 0;
     overflow: hidden;
+    display: none;
 }
 .sidebar-header {
     display: flex;
@@ -389,6 +390,74 @@ body {
     width: 100%;
     height: 100%;
     border: none;
+}
+
+.sidebar-header h3 {
+    cursor: pointer;
+}
+
+/* Estilos mejorados para la página de configuración */
+.settings-card {
+    transition: all 0.3s ease;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.settings-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+}
+
+.settings-card .card-header {
+    border-radius: 10px 10px 0 0;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.settings-icon {
+    font-size: 2rem;
+    margin-bottom: 15px;
+    color: #4a6cf7;
+}
+
+.color-picker-container {
+    display: flex;
+    gap: 10px;
+    margin: 15px 0;
+}
+
+.color-option {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: all 0.2s;
+}
+
+.color-option:hover {
+    transform: scale(1.1);
+}
+
+.color-option.active {
+    border: 2px solid #333;
+}
+
+.form-range::-webkit-slider-thumb {
+    background: #4a6cf7;
+}
+
+/* Animación para estadísticas */
+.stats-counter {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #4a6cf7;
+    transition: all 0.5s ease;
+}
+
+.stats-counter.pulse {
+    transform: scale(1.1);
 }
 
 /* Responsive */
