@@ -1,3 +1,4 @@
+
 # 📊 E-Commerce Analytics: Plataforma de Análisis de Datos 
 
 <p align="center"><img src="src/frente.jpg" width="900px" height="auto"></p>
@@ -25,6 +26,7 @@ La plataforma está diseñada para ayudar a los propietarios de e-commerce a tom
       <th>Integrante</th>
       <th>Rol</th>
     </tr>
+
   </thead>
   <tbody>
     <tr>
@@ -47,6 +49,7 @@ La plataforma está diseñada para ayudar a los propietarios de e-commerce a tom
 </table>
 
 </div>
+
 
 ## 🎯 Objetivos
 
@@ -166,3 +169,4 @@ Este proyecto está licenciado bajo la Licencia MIT - vea el archivo [LICENSE](L
 ## 📞 Contacto
 
 Para cualquier consulta sobre el proyecto, contacta a cualquier miembro del equipo o abre un issue en el repositorio.
+
