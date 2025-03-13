@@ -1,0 +1,1099 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>E-Commerce Analytics - Home</title>
+    <!-- Estilos CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.35.3/apexcharts.min.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h3 id="logo-home">E-Commerce Analytics</h3>
+                <button class="btn-toggle-sidebar" id="toggleSidebar">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+            <div class="sidebar-content">
+                <ul class="nav flex-column">
+                    <li class="nav-item" data-page="dashboard">
+                        <a class="nav-link">
+                            <i class="fas fa-tachometer-alt"></i>
+                            <span>Dashboard Principal</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-page="customer">
+                        <a class="nav-link">
+                            <i class="fas fa-users"></i>
+                            <span>Comportamiento Cliente</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-page="reviews">
+                        <a class="nav-link">
+                            <i class="fas fa-comments"></i>
+                            <span>Análisis de Reviews</span>
+                        </a>
+                    </li>
+                    <li class="nav-item" data-page="settings">
+                        <a class="nav-link">
+                            <i class="fas fa-cog"></i>
+                            <span>Configuraciones</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+
+        <!-- Contenido principal -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-left">
+                    <h2 id="page-title">Home</h2>
+                </div>
+                <div class="header-right">
+                    <div class="theme-toggle">
+                        <button id="theme-toggle-btn" class="btn btn-outline-secondary btn-sm">
+                            <i class="fas fa-moon"></i>
+                        </button>
+                    </div>
+                    <div class="user-profile">
+                        <div class="dropdown">
+                            <button class="btn dropdown-toggle" type="button" id="userMenu" data-bs-toggle="dropdown">
+                                <img src="assets\img\user1.jpg" alt="User" class="user-avatar">
+                                <span class="user-name">Admin</span>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userMenu">
+                                <li><a class="dropdown-item" href="#"><i class="fas fa-user"></i> Perfil</a></li>
+                                <li><a class="dropdown-item" href="#"><i class="fas fa-cog"></i> Preferencias</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item" href="#" id="logout-btn"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Contenedor de páginas -->
+            <div class="page-container">
+                <!-- Home Page -->
+                <div class="page active" id="home-page">
+                    <!-- Sección de bienvenida -->
+                    <div class="welcome-section">
+                        <div class="row align-items-center">
+                            <div class="col-md-7">
+                                <h2 class="mb-3">¡Bienvenido a su Panel de E-Commerce Analytics!</h2>
+                                <p class="lead mb-4">Analiza, gestiona y optimiza tu tienda online con herramientas avanzadas de análisis.</p>
+                                <p class="mb-4">Desde el seguimiento de ventas en tiempo real hasta análisis de comportamiento de clientes, nuestra plataforma te ofrece todas las herramientas para aumentar tus conversiones y mejorar la experiencia del usuario.</p>
+                                <button class="btn btn-primary btn-get-started" id="goto-dashboard">
+                                    Ir al Dashboard <i class="fas fa-arrow-right ms-2"></i>
+                                </button>
+                            </div>
+                            <div class="col-md-5">
+                                <img src="assets\img\logo.jpeg" alt="Analytics Dashboard" class="hero-image">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Estadísticas rápidas -->
+                    <div class="row mb-4">
+                        <div class="col-md-4">
+                            <div class="card text-center p-3">
+                                <div class="stats-counter" id="total-orders">1000000</div>
+                                <div class="stats-label">Pedidos Totales</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card text-center p-3">
+                                <div class="stats-counter" id="total-customers">1000000</div>
+                                <div class="stats-label">Clientes Activos</div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="card text-center p-3">
+                                <div class="stats-counter" id="avg-rating">5.16</div>
+                                <div class="stats-label">Valoración Media</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Secciones principales -->
+                    <h3 class="mb-4">Características Principales</h3>
+                    <div class="row mb-4">
+                        <div class="col-md-4 mb-4">
+                            <div class="card feature-card p-4">
+                                <div class="text-center feature-icon">
+                                    <i class="fas fa-tachometer-alt"></i>
+                                </div>
+                                <h4 class="text-center mb-3">Dashboard Principal</h4>
+                                <p>Visualiza tus métricas clave de rendimiento de un vistazo. Monitorea ventas, conversiones e ingresos en tiempo real.</p>
+                                <div class="mt-auto text-center">
+                                    <button class="btn btn-outline-primary mt-3" data-page="dashboard">Ver Dashboard</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="card feature-card p-4">
+                                <div class="text-center feature-icon">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                <h4 class="text-center mb-3">Análisis de Clientes</h4>
+                                <p>Comprende el comportamiento de tus clientes. Analiza patrones de compra, abandonos de carrito y demografía.</p>
+                                <div class="mt-auto text-center">
+                                    <button class="btn btn-outline-primary mt-3" data-page="customer">Explorar Clientes</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4 mb-4">
+                            <div class="card feature-card p-4">
+                                <div class="text-center feature-icon">
+                                    <i class="fas fa-comments"></i>
+                                </div>
+                                <h4 class="text-center mb-3">Análisis de Reviews</h4>
+                                <p>Evalúa el feedback de tus clientes con análisis de sentimiento avanzado. Identifica tendencias en opiniones y mejora tus productos.</p>
+                                <div class="mt-auto text-center">
+                                    <button class="btn btn-outline-primary mt-3" data-page="reviews">Ver Reviews</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Dashboard Page -->
+                <div class="page" id="dashboard-page">
+                    <div class="powerbi-container">
+                        <iframe src="https://app.powerbi.com/view?r=eyJrIjoiYmY5YjMyZDMtOWIzNy00MjQ4LWIwZDAtYmNiNjUzZGJlYTgwIiwidCI6Ijk4MjAxZmVmLWQ5ZjYtNGU2OC04NGY1LWMyNzA1MDc0ZTM0MiIsImMiOjR9&pageName=7c26b32267c3dd4d21ca"></iframe>
+                    </div>
+                </div>
+                
+                <!-- Customer Page -->
+                <div class="page" id="customer-page">
+                    <div class="powerbi-container">
+                        <iframe src="https://app.powerbi.com/view?r=eyJrIjoiYmY5YjMyZDMtOWIzNy00MjQ4LWIwZDAtYmNiNjUzZGJlYTgwIiwidCI6Ijk4MjAxZmVmLWQ5ZjYtNGU2OC04NGY1LWMyNzA1MDc0ZTM0MiIsImMiOjR9&pageName=d037fc3143001c7d913c"></iframe>
+                    </div>
+                </div>
+                
+                <!-- Reviews Page -->
+                <div class="page" id="reviews-page">
+                    <div class="powerbi-container">
+                        <iframe src="https://app.powerbi.com/view?r=eyJrIjoiYmY5YjMyZDMtOWIzNy00MjQ4LWIwZDAtYmNiNjUzZGJlYTgwIiwidCI6Ijk4MjAxZmVmLWQ5ZjYtNGU2OC04NGY1LWMyNzA1MDc0ZTM0MiIsImMiOjR9&pageName=cda916feee6e80eb3056"></iframe>
+                    </div>
+                </div>
+                
+                <!-- Settings Page (Mejorada) -->
+                <div class="page" id="settings-page">
+                    <div class="row">
+                        <!-- Apariencia -->
+                        <div class="col-md-6 col-lg-4">
+                            <div class="card settings-card">
+                                <div class="card-header">
+                                    <h5 class="card-title mb-0">Apariencia</h5>
+                                </div>
+                                <div class="card-body text-center">
+                                    <div class="settings-icon">
+                                        <i class="fas fa-palette"></i>
+                                    </div>
+                                    
+                                    <div class="mb-4">
+                                        <h6 class="mb-3">Tema</h6>
+                                        <div class="form-check form-switch d-flex justify-content-center align-items-center mb-3">
+                                            <input class="form-check-input me-2" type="checkbox" id="darkModeSwitch">
+                                            <label class="form-check-label" for="darkModeSwitch">Modo Oscuro</label>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-4">
+                                        <h6 class="mb-3">Color Principal</h6>
+                                        <div class="color-picker-container d-flex justify-content-center">
+                                            <div class="color-option active" style="background-color: #4a6cf7;" data-color="#4a6cf7"></div>
+                                            <div class="color-option" style="background-color: #e63946;" data-color="#e63946"></div>
+                                            <div class="color-option" style="background-color: #2a9d8f;" data-color="#2a9d8f"></div>
+                                            <div class="color-option" style="background-color: #f4a261;" data-color="#f4a261"></div>
+                                            <div class="color-option" style="background-color: #9b5de5;" data-color="#9b5de5"></div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-4">
+                                        <h6 class="mb-3">Tamaño de Fuente</h6>
+                                        <input type="range" class="form-range" min="12" max="20" step="1" value="16" id="fontSizeRange">
+                                        <div class="mt-2 font-size-preview">16px</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Notificaciones -->
+                        <div class="col-md-6 col-lg-4">
+                            <div class="card settings-card">
+                                <div class="card-header">
+                                    <h5 class="card-title mb-0">Notificaciones</h5>
+                                </div>
+                                <div class="card-body text-center">
+                                    <div class="settings-icon">
+                                        <i class="fas fa-bell"></i>
+                                    </div>
+                                    
+                                    <div class="mb-4">
+                                        <h6 class="mb-3">Canales</h6>
+                                        <div class="form-check form-switch d-flex justify-content-between align-items-center mb-2">
+                                            <label class="form-check-label" for="emailNotifications">Email</label>
+                                            <input class="form-check-input" type="checkbox" id="emailNotifications" checked>
+                                        </div>
+                                        <div class="form-check form-switch d-flex justify-content-between align-items-center mb-2">
+                                            <label class="form-check-label" for="pushNotifications">Push</label>
+                                            <input class="form-check-input" type="checkbox" id="pushNotifications" checked>
+                                        </div>
+                                        <div class="form-check form-switch d-flex justify-content-between align-items-center mb-2">
+                                            <label class="form-check-label" for="smsNotifications">SMS</label>
+                                            <input class="form-check-input" type="checkbox" id="smsNotifications">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-4">
+                                        <h6 class="mb-3">Frecuencia</h6>
+                                        <select class="form-select" id="notificationFrequency">
+                                            <option value="instant">Instantánea</option>
+                                            <option value="hourly">Cada hora</option>
+                                            <option value="daily" selected>Diaria</option>
+                                            <option value="weekly">Semanal</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="mb-4">
+                                        <h6 class="mb-3">Horario Silencioso</h6>
+                                        <div class="row g-2">
+                                            <div class="col-6">
+                                                <input type="time" class="form-control" id="quietTimeStart" value="22:00">
+                                                <small class="text-muted">Inicio</small>
+                                            </div>
+                                            <div class="col-6">
+                                                <input type="time" class="form-control" id="quietTimeEnd" value="08:00">
+                                                <small class="text-muted">Fin</small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Preferencias Dashboard -->
+                        <div class="col-md-6 col-lg-4">
+                            <div class="card settings-card">
+                                <div class="card-header">
+                                    <h5 class="card-title mb-0">Preferencias Dashboard</h5>
+                                </div>
+                                <div class="card-body text-center">
+                                    <div class="settings-icon">
+                                        <i class="fas fa-chart-line"></i>
+                                    </div>
+                                    
+                                    <div class="mb-4">
+                                        <h6 class="mb-3">Métricas Visibles</h6>
+                                        <div class="form-check d-flex justify-content-between align-items-center mb-2">
+                                            <label class="form-check-label" for="showRevenue">Ingresos</label>
+                                            <input class="form-check-input" type="checkbox" id="showRevenue" checked>
+                                        </div>
+                                        <div class="form-check d-flex justify-content-between align-items-center mb-2">
+                                            <label class="form-check-label" for="showConversions">Conversiones</label>
+                                            <input class="form-check-input" type="checkbox" id="showConversions" checked>
+                                        </div>
+                                        <div class="form-check d-flex justify-content-between align-items-center mb-2">
+                                            <label class="form-check-label" for="showVisitors">Visitantes</label>
+                                            <input class="form-check-input" type="checkbox" id="showVisitors" checked>
+                                        </div>
+                                        <div class="form-check d-flex justify-content-between align-items-center mb-2">
+                                            <label class="form-check-label" for="showAOV">Valor Medio Pedido</label>
+                                            <input class="form-check-input" type="checkbox" id="showAOV" checked>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-4">
+                                        <h6 class="mb-3">Periodo por Defecto</h6>
+                                        <select class="form-select" id="defaultTimePeriod">
+                                            <option value="today">Hoy</option>
+                                            <option value="yesterday">Ayer</option>
+                                            <option value="last7">Últimos 7 días</option>
+                                            <option value="last30" selected>Últimos 30 días</option>
+                                            <option value="lastQuarter">Último trimestre</option>
+                                            <option value="ytd">Año hasta la fecha</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="mb-4">
+                                        <h6 class="mb-3">Actualización de Datos</h6>
+                                        <select class="form-select" id="dataRefreshRate">
+                                            <option value="30">Cada 30 segundos</option>
+                                            <option value="60" selected>Cada minuto</option>
+                                            <option value="300">Cada 5 minutos</option>
+                                            <option value="600">Cada 10 minutos</option>
+                                            <option value="manual">Manual</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Exportación y Copias de Seguridad -->
+                        <div class="col-md-6 col-lg-4">
+                            <div class="card settings-card">
+                                <div class="card-header">
+                                    <h5 class="card-title mb-0">Exportación de Datos</h5>
+                                </div>
+                                <div class="card-body text-center">
+                                    <div class="settings-icon">
+                                        <i class="fas fa-file-export"></i>
+                                    </div>
+                                    
+                                    <div class="mb-4">
+                                        <h6 class="mb-3">Formato</h6>
+                                        <select class="form-select mb-3" id="exportFormat">
+                                            <option value="csv" selected>CSV</option>
+                                            <option value="excel">Excel</option>
+                                            <option value="pdf">PDF</option>
+                                            <option value="json">JSON</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="mb-4">
+                                        <h6 class="mb-3">Copias de Seguridad Automáticas</h6>
+                                        <div class="form-check form-switch d-flex justify-content-center align-items-center mb-3">
+                                            <input class="form-check-input me-2" type="checkbox" id="autoBackup" checked>
+                                            <label class="form-check-label" for="autoBackup">Activadas</label>
+                                        </div>
+                                        <select class="form-select" id="backupFrequency">
+                                            <option value="daily">Diaria</option>
+                                            <option value="weekly" selected>Semanal</option>
+                                            <option value="monthly">Mensual</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <button class="btn btn-primary" id="exportDataNow">
+                                        <i class="fas fa-download me-2"></i>Exportar Ahora
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Acceso y Seguridad -->
+                        <div class="col-md-6 col-lg-4">
+                            <div class="card settings-card">
+                                <div class="card-header">
+                                    <h5 class="card-title mb-0">Acceso y Seguridad</h5>
+                                </div>
+                                <div class="card-body text-center">
+                                    <div class="settings-icon">
+                                        <i class="fas fa-lock"></i>
+                                    </div>
+                                    
+                                    <div class="mb-4">
+                                        <h6 class="mb-3">Autenticación</h6>
+                                        <div class="form-check form-switch d-flex justify-content-between align-items-center mb-2">
+                                            <label class="form-check-label" for="twoFactorAuth">Autenticación de dos factores</label>
+                                            <input class="form-check-input" type="checkbox" id="twoFactorAuth">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-4">
+                                        <h6 class="mb-3">Sesión</h6>
+                                        <select class="form-select mb-3" id="sessionTimeout">
+                                            <option value="15">15 minutos</option>
+                                            <option value="30" selected>30 minutos</option>
+                                            <option value="60">1 hora</option>
+                                            <option value="120">2 horas</option>
+                                            <option value="0">Sin límite</option>
+                                        </select>
+                                    </div>
+                                    
+                                    <button class="btn btn-outline-danger" id="changePasswordBtn">
+                                        <i class="fas fa-key me-2"></i>Cambiar Contraseña
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Personalización Avanzada -->
+                        <div class="col-md-6 col-lg-4">
+                            <div class="card settings-card">
+                                <div class="card-header">
+                                    <h5 class="card-title mb-0">Personalización Avanzada</h5>
+                                </div>
+                                <div class="card-body text-center">
+                                    <div class="settings-icon">
+                                        <i class="fas fa-magic"></i>
+                                    </div>
+                                    
+                                    <div class="mb-4">
+                                        <h6 class="mb-3">Widgets</h6>
+                                        <div class="form-check d-flex justify-content-between align-items-center mb-2">
+                                            <label class="form-check-label" for="showWeatherWidget">Widget del Clima</label>
+                                            <input class="form-check-input" type="checkbox" id="showWeatherWidget" checked>
+                                        </div>
+                                        <div class="form-check d-flex justify-content-between align-items-center mb-2">
+                                            <label class="form-check-label" for="showCalendarWidget">Widget de Calendario</label>
+                                            <input class="form-check-input" type="checkbox" id="showCalendarWidget" checked>
+                                        </div>
+                                        <div class="form-check d-flex justify-content-between align-items-center mb-2">
+                                            <label class="form-check-label" for="showNotesWidget">Widget de Notas</label>
+                                            <input class="form-check-input" type="checkbox" id="showNotesWidget">
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-4">
+                                        <h6 class="mb-3">Página de Inicio</h6>
+                                        <select class="form-select" id="startupPage">
+                                            <option value="home" selected>Página de Inicio</option>
+                                            <option value="dashboard">Dashboard</option>
+                                            <option value="customer">Clientes</option>
+                                            <option value="reviews">Reviews</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="d-flex justify-content-end mt-4">
+                        <button class="btn btn-secondary me-2" id="resetSettingsBtn">Restaurar Valores Predeterminados</button>
+                        <button class="btn btn-primary" id="saveSettingsBtn">Guardar Configuración</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer -->
+            <footer class="footer">
+                <p>&copy; 2025 E-Commerce Analytics Dashboard</p>
+            </footer>
+        </main>
+    </div>
+
+    <!-- Ventana modal de login -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-hidden="true" data-bs-backdrop="static">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Iniciar sesión</h5>
+                </div>
+                <div class="modal-body">
+                    <form id="login-form">
+                        <div class="mb-3">
+                            <label for="username" class="form-label">Usuario</label>
+                            <input type="text" class="form-control" id="username" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="password" class="form-label">Contraseña</label>
+                            <input type="password" class="form-control" id="password" required>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">Acceder</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Nuevo modal para cambio de contraseña -->
+    <div class="modal fade" id="changePasswordModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Cambiar Contraseña</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="change-password-form">
+                        <div class="mb-3">
+                            <label for="current-password" class="form-label">Contraseña Actual</label>
+                            <input type="password" class="form-control" id="current-password" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="new-password" class="form-label">Nueva Contraseña</label>
+                            <input type="password" class="form-control" id="new-password" required>
+                            <div class="password-strength mt-2">
+                                <div class="progress">
+                                    <div class="progress-bar" role="progressbar" style="width: 0%"></div>
+                                </div>
+                                <small class="text-muted">Fortaleza de la contraseña</small>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label for="confirm-password" class="form-label">Confirmar Nueva Contraseña</label>
+                            <input type="password" class="form-control" id="confirm-password" required>
+                            <div id="password-match-feedback" class="form-text"></div>
+                        </div>
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">Cambiar Contraseña</button>
+                        </div>
+                    </form>
+                </div>
+                </div>
+                </div>
+                </div>
+
+                <!-- Modal de exportación exitosa -->
+                <div class="modal fade" id="exportSuccessModal" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-body text-center p-4">
+                                <div class="success-icon mb-3">
+                                    <i class="fas fa-check-circle text-success" style="font-size: 3rem;"></i>
+                                </div>
+                                <h4 class="mb-3">¡Exportación Exitosa!</h4>
+                                <p>Los datos se han exportado correctamente.</p>
+                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+                                    <i class="fas fa-check me-2"></i>Aceptar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modal de ajustes guardados -->
+                <div class="modal fade" id="settingsSavedModal" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered">
+                        <div class="modal-content">
+                            <div class="modal-body text-center p-4">
+                                <div class="success-icon mb-3">
+                                    <i class="fas fa-save text-primary" style="font-size: 3rem;"></i>
+                                </div>
+                                <h4 class="mb-3">¡Configuración Guardada!</h4>
+                                <p>Tus preferencias han sido actualizadas correctamente.</p>
+                                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">
+                                    <i class="fas fa-check me-2"></i>Aceptar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+<!-- Scripts JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.35.3/apexcharts.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+<script>
+    // Funcionalidad de navegación
+    document.addEventListener('DOMContentLoaded', function() {
+        // Referencias a elementos
+        const sidebar = document.getElementById('sidebar');
+        const toggleSidebarBtn = document.getElementById('toggleSidebar');
+        const navItems = document.querySelectorAll('.nav-item');
+        const pageTitle = document.getElementById('page-title');
+        const pages = document.querySelectorAll('.page');
+        const themeToggleBtn = document.getElementById('theme-toggle-btn');
+        const logoutBtn = document.getElementById('logout-btn');
+        const logoHome = document.getElementById('logo-home');
+        const gotoDashboardBtn = document.getElementById('goto-dashboard');
+        
+        // Modal y botones
+        const loginForm = document.getElementById('login-form');
+        const loginModal = new bootstrap.Modal(document.getElementById('loginModal'));
+        const changePasswordBtn = document.getElementById('changePasswordBtn');
+        const changePasswordModal = new bootstrap.Modal(document.getElementById('changePasswordModal'));
+        const changePasswordForm = document.getElementById('change-password-form');
+        const exportDataBtn = document.getElementById('exportDataNow');
+        const exportSuccessModal = new bootstrap.Modal(document.getElementById('exportSuccessModal'));
+        const saveSettingsBtn = document.getElementById('saveSettingsBtn');
+        const settingsSavedModal = new bootstrap.Modal(document.getElementById('settingsSavedModal'));
+        const resetSettingsBtn = document.getElementById('resetSettingsBtn');
+        
+        // Configuración
+        const darkModeSwitch = document.getElementById('darkModeSwitch');
+        const colorOptions = document.querySelectorAll('.color-option');
+        const fontSizeRange = document.getElementById('fontSizeRange');
+        const fontSizePreview = document.querySelector('.font-size-preview');
+        
+        // Comprobar si hay un tema guardado
+        if (localStorage.getItem('darkMode') === 'true') {
+            document.body.classList.add('dark-mode');
+            themeToggleBtn.innerHTML = '<i class="fas fa-sun"></i>';
+            darkModeSwitch.checked = true;
+        }
+        
+        // Comprobar si hay un color principal guardado
+        const savedColor = localStorage.getItem('primaryColor');
+        if (savedColor) {
+            document.documentElement.style.setProperty('--primary-color', savedColor);
+            // Actualizar el color activo
+            colorOptions.forEach(option => {
+                option.classList.remove('active');
+                if (option.dataset.color === savedColor) {
+                    option.classList.add('active');
+                }
+            });
+        }
+        
+        // Comprobar si hay un tamaño de fuente guardado
+        const savedFontSize = localStorage.getItem('fontSize');
+        if (savedFontSize) {
+            document.documentElement.style.setProperty('--base-font-size', savedFontSize + 'px');
+            fontSizeRange.value = savedFontSize;
+            fontSizePreview.textContent = savedFontSize + 'px';
+        }
+        
+        // Mostrar modal de login al cargar si no hay sesión
+        if (!localStorage.getItem('loggedIn')) {
+            loginModal.show();
+        }
+        
+        // Evento para el botón de toggle sidebar
+        toggleSidebarBtn.addEventListener('click', function() {
+            sidebar.classList.toggle('collapsed');
+        });
+        navigateTo('home');
+        // Ir a página de inicio al hacer clic en el logo
+        logoHome.addEventListener('click', function() {
+            navigateTo('home');
+        });
+
+        // Navegación entre páginas
+        function navigateTo(pageId) {
+            pages.forEach(page => page.classList.remove('active'));
+            const targetPage = document.getElementById(pageId + '-page');
+            if (targetPage) {
+                targetPage.classList.add('active');
+                pageTitle.textContent = pageId.charAt(0).toUpperCase() + pageId.slice(1);
+                
+                // Mostrar u ocultar el sidebar dependiendo de la página
+                if (pageId === 'home') {
+                    sidebar.classList.add('hidden');  // Oculta el sidebar en la página home
+                } else {
+                    sidebar.classList.remove('hidden'); // Muestra el sidebar en otras páginas
+                }
+            }
+        }
+
+        navItems.forEach(item => {
+            item.addEventListener('click', function() {
+                const pageId = this.dataset.page;
+                navigateTo(pageId);
+                
+                // En dispositivos móviles, colapsar el sidebar después de la navegación
+                if (window.innerWidth < 768) {
+                    sidebar.classList.add('collapsed');
+                }
+            });
+        });
+
+
+
+        // Ir al dashboard desde la página de inicio
+        if (gotoDashboardBtn) {
+            gotoDashboardBtn.addEventListener('click', function() {
+                navigateTo('dashboard');
+            });
+        }
+        // Botones de características en la página de inicio
+        document.querySelectorAll('.feature-card button').forEach(button => {
+            button.addEventListener('click', function() {
+                const pageId = this.getAttribute('data-page');
+                navigateTo(pageId);
+            });
+        });              
+        // Cambiar tema
+        themeToggleBtn.addEventListener('click', function() {
+            document.body.classList.toggle('dark-mode');
+            
+            if (document.body.classList.contains('dark-mode')) {
+                themeToggleBtn.innerHTML = '<i class="fas fa-sun"></i>';
+                localStorage.setItem('darkMode', 'true');
+                if (darkModeSwitch) darkModeSwitch.checked = true;
+            } else {
+                themeToggleBtn.innerHTML = '<i class="fas fa-moon"></i>';
+                localStorage.setItem('darkMode', 'false');
+                if (darkModeSwitch) darkModeSwitch.checked = false;
+            }
+        });
+        
+        // Formulario de login
+        if (loginForm) {
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const username = document.getElementById('username').value;
+                const password = document.getElementById('password').value;
+                
+                // Simulación de validación (en un caso real, esto sería una petición al servidor)
+                if (username && password) {
+                    localStorage.setItem('loggedIn', 'true');
+                    loginModal.hide();
+                }
+            });
+        }
+        
+        // Cerrar sesión
+        if (logoutBtn) {
+            logoutBtn.addEventListener('click', function() {
+                localStorage.removeItem('loggedIn');
+                loginModal.show();
+            });
+        }
+        
+        // Cambiar de modo oscuro desde configuración
+        if (darkModeSwitch) {
+            darkModeSwitch.addEventListener('change', function() {
+                if (this.checked) {
+                    document.body.classList.add('dark-mode');
+                    themeToggleBtn.innerHTML = '<i class="fas fa-sun"></i>';
+                    localStorage.setItem('darkMode', 'true');
+                } else {
+                    document.body.classList.remove('dark-mode');
+                    themeToggleBtn.innerHTML = '<i class="fas fa-moon"></i>';
+                    localStorage.setItem('darkMode', 'false');
+                }
+            });
+        }
+        
+        // Selector de color principal
+        if (colorOptions) {
+            colorOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    const color = this.dataset.color;
+                    document.documentElement.style.setProperty('--primary-color', color);
+                    localStorage.setItem('primaryColor', color);
+                    
+                    // Actualizar selección visual
+                    colorOptions.forEach(opt => opt.classList.remove('active'));
+                    this.classList.add('active');
+                });
+            });
+        }
+        
+        // Control de tamaño de fuente
+        if (fontSizeRange) {
+            fontSizeRange.addEventListener('input', function() {
+                const fontSize = this.value;
+                document.documentElement.style.setProperty('--base-font-size', fontSize + 'px');
+                fontSizePreview.textContent = fontSize + 'px';
+                localStorage.setItem('fontSize', fontSize);
+            });
+        }
+        
+        // Abrir modal de cambio de contraseña
+        if (changePasswordBtn) {
+            changePasswordBtn.addEventListener('click', function() {
+                changePasswordModal.show();
+            });
+        }
+        
+        // Validación de contraseña en tiempo real
+        if (changePasswordForm) {
+            const newPasswordInput = document.getElementById('new-password');
+            const confirmPasswordInput = document.getElementById('confirm-password');
+            const passwordStrengthBar = document.querySelector('.password-strength .progress-bar');
+            const passwordMatchFeedback = document.getElementById('password-match-feedback');
+            
+            // Verificar fortaleza de contraseña
+            newPasswordInput.addEventListener('input', function() {
+                const value = this.value;
+                let strength = 0;
+                
+                if (value.length >= 8) strength += 25;
+                if (value.match(/[A-Z]/)) strength += 25;
+                if (value.match(/[0-9]/)) strength += 25;
+                if (value.match(/[^A-Za-z0-9]/)) strength += 25;
+                
+                passwordStrengthBar.style.width = strength + '%';
+                
+                // Cambiar color según fortaleza
+                if (strength <= 25) {
+                    passwordStrengthBar.className = 'progress-bar bg-danger';
+                } else if (strength <= 50) {
+                    passwordStrengthBar.className = 'progress-bar bg-warning';
+                } else if (strength <= 75) {
+                    passwordStrengthBar.className = 'progress-bar bg-info';
+                } else {
+                    passwordStrengthBar.className = 'progress-bar bg-success';
+                }
+                
+                // Verificar coincidencia si ya hay texto en el campo de confirmación
+                if (confirmPasswordInput.value) {
+                    checkPasswordMatch();
+                }
+            });
+            
+            // Verificar coincidencia de contraseñas
+            function checkPasswordMatch() {
+                if (newPasswordInput.value === confirmPasswordInput.value) {
+                    passwordMatchFeedback.textContent = 'Las contraseñas coinciden';
+                    passwordMatchFeedback.className = 'form-text text-success';
+                } else {
+                    passwordMatchFeedback.textContent = 'Las contraseñas no coinciden';
+                    passwordMatchFeedback.className = 'form-text text-danger';
+                }
+            }
+            
+            confirmPasswordInput.addEventListener('input', checkPasswordMatch);
+            
+            // Enviar formulario de cambio de contraseña
+            changePasswordForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                if (newPasswordInput.value === confirmPasswordInput.value) {
+                    // Simulación de cambio (en un caso real, esto sería una petición al servidor)
+                    changePasswordModal.hide();
+                    alert('Contraseña cambiada con éxito');
+                }
+            });
+        }
+        
+        // Exportar datos
+        if (exportDataBtn) {
+            exportDataBtn.addEventListener('click', async function() {
+                // Mostrar estado de carga
+                const btn = this;
+                btn.disabled = true;
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Exportando...';
+                
+                try {
+                    // Verificar si hay una página activa o visible
+                    let activePage = null;
+                    
+                    // Intenta diferentes métodos para obtener la página activa
+                    const pages = document.querySelectorAll('.page');
+                    for (let page of pages) {
+                        // Verifica el estilo de visualización
+                        const style = window.getComputedStyle(page);
+                        if (style.display !== 'none') {
+                            activePage = page;
+                            break;
+                        }
+                    }
+                    
+                    // Si no encontramos ninguna página visible, tomamos la primera
+                    if (!activePage && pages.length > 0) {
+                        activePage = pages[0];
+                    }
+                    
+                    if (!activePage) {
+                        throw new Error("No se encontró ninguna página activa");
+                    }
+                    
+                    console.log("Página activa encontrada:", activePage.id);
+                    
+                    // Buscar el iframe que corresponda a la página activa
+                    // En lugar de buscar solo en la página activa, buscaremos en todo el documento
+                    // y asociaremos el iframe correcto según alguna lógica de tu aplicación
+                    
+                    let iframeToUse = null;
+                    const allIframes = document.querySelectorAll('iframe');
+                    
+                    if (allIframes.length === 0) {
+                        throw new Error("No se encontró ningún iframe en el documento");
+                    }
+                    
+                    // Para la página de configuraciones, podemos tener una lógica específica
+                    if (activePage.id === 'settings-page') {
+                        // Aquí puedes elegir cuál de los iframes usar para esta página específica
+                        // Por ejemplo, usar el primer iframe disponible o uno con un ID/clase específico
+                        iframeToUse = allIframes[0]; // O usar un iframe específico basado en tu lógica
+                    } else {
+                        // Para otras páginas, intentamos encontrar el iframe dentro de la página activa
+                        iframeToUse = activePage.querySelector('iframe');
+                        
+                        // Si no hay iframe en la página activa, usar el primero disponible
+                        if (!iframeToUse && allIframes.length > 0) {
+                            iframeToUse = allIframes[0];
+                        }
+                    }
+                    
+                    if (!iframeToUse) {
+                        throw new Error("No se pudo determinar qué iframe utilizar para la exportación");
+                    }
+                    
+                    console.log("Iframe seleccionado para exportación:", iframeToUse.src);
+                    
+                    // Crear título del reporte basado en la página activa
+                    const reportTitle = activePage.id.replace('-page', '').replace(/-/g, ' ');
+                    const capitalizedTitle = reportTitle.charAt(0).toUpperCase() + reportTitle.slice(1);
+                    
+                    // Crear el PDF directamente con los datos del iframe
+                    const { jsPDF } = window.jspdf;
+                    const pdf = new jsPDF('landscape');
+                    
+                    // Añadir título y metadatos
+                    pdf.setFontSize(18);
+                    pdf.text(`Reporte: ${capitalizedTitle}`, 14, 20);
+                    
+                    pdf.setFontSize(12);
+                    pdf.text(`Fecha de exportación: ${new Date().toLocaleDateString()}`, 14, 30);
+                    pdf.text(`URL del reporte: ${iframeToUse.src}`, 14, 40);
+                    
+                    // Añadir nota sobre visualización
+                    pdf.setFontSize(10);
+                    const noteText = "Nota: Este PDF contiene un enlace al reporte interactivo de Power BI. " +
+                                    "Para acceder a las funcionalidades completas del reporte, acceda al enlace original.";
+                    
+                    const splitNote = pdf.splitTextToSize(noteText, pdf.internal.pageSize.getWidth() - 40);
+                    pdf.text(splitNote, 14, 50);
+                    
+                    // Agregar captura del QR para acceso rápido
+                    try {
+                        // Generar un QR con la URL del iframe (opcional)
+                        const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(iframeToUse.src)}`;
+                        pdf.addImage(qrCodeUrl, 'PNG', 14, 70, 50, 50);
+                        pdf.setFontSize(8);
+                        pdf.text("Escanee este código QR para acceder al reporte interactivo", 14, 125);
+                    } catch (qrError) {
+                        console.error("Error al generar QR:", qrError);
+                        // Continuar sin el QR si falla
+                    }
+                    
+                    // Añadir sección de instrucciones
+                    pdf.setFontSize(12);
+                    pdf.text("Instrucciones para acceder al reporte completo:", 14, 140);
+                    
+                    pdf.setFontSize(10);
+                    const instructions = [
+                        "1. Abra su navegador web e ingrese la URL mencionada anteriormente",
+                        "2. Espere a que cargue el reporte interactivo de Power BI",
+                        "3. Utilice los filtros y opciones interactivas para analizar los datos"
+                    ];
+                    
+                    let yPos = 150;
+                    instructions.forEach(instruction => {
+                        pdf.text(instruction, 14, yPos);
+                        yPos += 10;
+                    });
+                    
+                    // Guardar el PDF
+                    const pageName = activePage.id.replace('-page', '');
+                    pdf.save(`reporte-${pageName}.pdf`);
+                    
+                    // Mostrar modal de éxito
+                    if (typeof exportSuccessModal !== 'undefined' && exportSuccessModal) {
+                        exportSuccessModal.show();
+                    } else {
+                        alert("Reporte exportado con éxito. El PDF contiene el enlace al reporte interactivo.");
+                    }
+                } catch (error) {
+                    console.error("Error al exportar a PDF:", error);
+                    alert("Error al exportar: " + error.message);
+                } finally {
+                    // Restaurar el botón
+                    btn.disabled = false;
+                    btn.innerHTML = '<i class="fas fa-download me-2"></i>Exportar Ahora';
+                }
+            });
+        }
+        // Guardar configuración
+        if (saveSettingsBtn) {
+            saveSettingsBtn.addEventListener('click', function() {
+                // Simular guardado
+                const btn = this;
+                btn.disabled = true;
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Guardando...';
+                
+                setTimeout(() => {
+                    btn.disabled = false;
+                    btn.innerHTML = 'Guardar Configuración';
+                    settingsSavedModal.show();
+                }, 1500);
+            });
+        }
+        
+        // Restaurar valores predeterminados
+        if (resetSettingsBtn) {
+            resetSettingsBtn.addEventListener('click', function() {
+                if (confirm('¿Estás seguro de que quieres restaurar la configuración predeterminada?')) {
+                    // Restaurar tema
+                    document.body.classList.remove('dark-mode');
+                    themeToggleBtn.innerHTML = '<i class="fas fa-moon"></i>';
+                    if (darkModeSwitch) darkModeSwitch.checked = false;
+                    localStorage.setItem('darkMode', 'false');
+                    
+                    // Restaurar color principal
+                    const defaultColor = '#4a6cf7';
+                    document.documentElement.style.setProperty('--primary-color', defaultColor);
+                    localStorage.setItem('primaryColor', defaultColor);
+                    colorOptions.forEach(option => {
+                        option.classList.remove('active');
+                        if (option.dataset.color === defaultColor) {
+                            option.classList.add('active');
+                        }
+                    });
+                    
+                    // Restaurar tamaño de fuente
+                    const defaultFontSize = '16';
+                    document.documentElement.style.setProperty('--base-font-size', defaultFontSize + 'px');
+                    if (fontSizeRange) fontSizeRange.value = defaultFontSize;
+                    if (fontSizePreview) fontSizePreview.textContent = defaultFontSize + 'px';
+                    localStorage.setItem('fontSize', defaultFontSize);
+                    
+                    // Restaurar otras configuraciones
+                    document.getElementById('emailNotifications').checked = true;
+                    document.getElementById('pushNotifications').checked = true;
+                    document.getElementById('smsNotifications').checked = false;
+                    document.getElementById('notificationFrequency').value = 'daily';
+                    document.getElementById('quietTimeStart').value = '22:00';
+                    document.getElementById('quietTimeEnd').value = '08:00';
+                    document.getElementById('showRevenue').checked = true;
+                    document.getElementById('showConversions').checked = true;
+                    document.getElementById('showVisitors').checked = true;
+                    document.getElementById('showAOV').checked = true;
+                    document.getElementById('defaultTimePeriod').value = 'last30';
+                    document.getElementById('dataRefreshRate').value = '60';
+                    document.getElementById('exportFormat').value = 'csv';
+                    document.getElementById('autoBackup').checked = true;
+                    document.getElementById('backupFrequency').value = 'weekly';
+                    document.getElementById('twoFactorAuth').checked = false;
+                    document.getElementById('sessionTimeout').value = '30';
+                    document.getElementById('showWeatherWidget').checked = true;
+                    document.getElementById('showCalendarWidget').checked = true;
+                    document.getElementById('showNotesWidget').checked = false;
+                    document.getElementById('startupPage').value = 'home';
+                    
+                    alert('Configuración predeterminada restaurada.');
+                }
+            });
+        }
+        
+        // Animación para contadores de estadísticas
+        function animateCounter(element, target, duration = 1500) {
+            let start = 0;
+            const increment = target / (duration / 16);
+            const isFloat = target.toString().includes('.');
+            const decimals = isFloat ? target.toString().split('.')[1].length : 0;
+            
+            const timer = setInterval(() => {
+                start += increment;
+                if (start >= target) {
+                    clearInterval(timer);
+                    start = target;
+                }
+                element.textContent = isFloat ? start.toFixed(decimals) : Math.floor(start).toLocaleString();
+            }, 16);
+        }
+        
+        // Animación para contadores en la página principal
+        const statsCounters = document.querySelectorAll('.stats-counter');
+        if (statsCounters.length > 0) {
+            statsCounters.forEach(counter => {
+                const target = parseFloat(counter.textContent.replace(/,/g, ''));
+                counter.textContent = '0';
+                
+                // Animar cuando sea visible
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            animateCounter(counter, target);
+                            counter.classList.add('pulse');
+                            setTimeout(() => counter.classList.remove('pulse'), 600);
+                            observer.unobserve(counter);
+                        }
+                    });
+                }, { threshold: 0.5 });
+                
+                observer.observe(counter);
+            });
+        }
+    });
+</script>
+</body>
+</html>
