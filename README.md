@@ -1,4 +1,4 @@
-# 📊 E-Commerce Analytics: Plataforma de Análisis de Datos y Machine Learning
+# 📊 E-Commerce Analytics: Plataforma de Análisis de Datos 
 
 <p align="center"><img src="src/frente.jpg" width="900px" height="auto"></p>
 
@@ -9,10 +9,9 @@ E-Commerce Analytics es una plataforma especializada en el análisis de datos pa
 Nuestros servicios incluyen la creación de informes detallados y tableros interactivos que permiten visualizar y analizar diversos aspectos del negocio, como:
 - Ventas y tendencias
 - Comportamiento de productos
-- Análisis de envíos
+- Comportamiento de los clientes
 - Segmentación de clientes
 - Análisis de reseñas y sentimientos
-- Predicción de comportamientos mediante machine learning
 
 La plataforma está diseñada para ayudar a los propietarios de e-commerce a tomar decisiones basadas en datos, optimizar sus operaciones y mejorar la experiencia del cliente.
 
@@ -51,34 +50,30 @@ La plataforma está diseñada para ayudar a los propietarios de e-commerce a tom
 
 ## 🎯 Objetivos
 
-Nuestro objetivo principal es optimizar la experiencia del cliente de e-commerce mediante:
+Nuestro principal objetivo es mejorar la experiencia del cliente en e-commerce mediante el uso de análisis de datos. Para ello, nos enfocamos en:
 
-- Análisis predictivo de comportamientos (abandono de carrito, próximas compras)
-- Segmentación precisa de clientes para estrategias personalizadas
+- Identificación de patrones de comportamiento del cliente, como abandono de carrito y compras recurrentes.
 - Análisis de sentimientos en reseñas para mejorar productos y servicios
-- Visualización de datos para facilitar la toma de decisiones
-- Modelos avanzados de Machine Learning para predecir tendencias
+- Visualización de datos clave a través de dashboards interactivos.
 
-Todo esto enfocado en mejorar la toma de decisiones y aumentar la satisfacción general del cliente.
+Estos esfuerzos buscan potenciar la toma de decisiones estratégicas y elevar la satisfacción del cliente.
 
 ## 📖 Metodología
 
-La precisión en los datos sobre el funcionamiento de un negocio en línea es esencial para su mejora continua. Nuestro proyecto utiliza la ciencia de datos para proporcionar una visión diferente y valiosa del negocio.
+La precisión en los datos sobre el funcionamiento de un negocio en línea es esencial para su mejora continua. Nuestro proyecto utiliza el análisis de datos para proporcionar una visión diferente y valiosa del negocio.
 
-Aplicamos la metodología CRISP-DM (Cross-Industry Standard Process for Data Mining):
 
-1. **Recopilación de datos**: Obtención de datos históricos del comercio electrónico.
-2. **Preprocesamiento de datos**: Limpieza, transformación y preparación de datos para el entrenamiento de modelos.
-3. **Exploración de datos (EDA)**: Análisis exploratorio para identificar patrones y características relevantes.
-4. **Modelado**: Entrenamiento de modelos de clasificación utilizando algoritmos como Random Forest, XGBoost y redes neuronales.
-5. **Evaluación del modelo**: Medición del rendimiento mediante métricas como precisión, recall, F1-score y matriz de confusión.
-6. **Despliegue**: Implementación en una aplicación web utilizando Flask e integración con Power BI para visualización.
+1. **Recopilación de datos**: Integración de información sobre ventas, comportamiento del usuario y reseñas de productos.
+2. **Preprocesamiento de datos**: Limpieza y transformación de los datos para su análisis
+3. **Exploración de datos (EDA)**: Identificación de tendencias y relaciones clave en la información disponible.
+4. **Visualización y análisis**: Implementación de dashboards interactivos en Power BI para explorar datos sobre ventas, comportamiento del cliente y análisis de reseñas.
+5. **Despliegue e integración**: Desarrollo de una página web que centraliza los dashboards de Power BI, permitiendo una consulta ágil y accesible de la información.
 
-Para más información, consulta nuestra sección de [Metodología](https://github.com/No-Country-simulation/s21-09-n-data/blob/main/DOC/metodologia.md).
+
 
 ## 🔄 Esquema General de Trabajo
 
-Este proyecto realiza análisis de datos para plataformas de e-commerce siguiendo rigurosamente la metodología CRISP-DM. Desde la comprensión del negocio hasta el despliegue del modelo, se detalla cada fase del proyecto, ofreciendo una visión completa del proceso de desarrollo.
+Este proyecto realiza análisis de datos para plataformas de e-commerce siguiendo rigurosamente la metodología CRISP-DM. Desde la comprensión del negocio hasta el despliegue de la web, se detalla cada fase del proyecto, ofreciendo una visión completa del proceso de desarrollo.
 
 Para más detalles, consulta nuestro [Esquema General de Trabajo](https://github.com/No-Country-simulation/s21-09-n-data/blob/main/DOC/Esquema_General_de_trabajo.md).
 
