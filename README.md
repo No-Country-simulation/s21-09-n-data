@@ -164,7 +164,7 @@ Este proyecto ha alcanzado con éxito su MVP, demostrando la viabilidad de una p
 
 ## 📄 Licencia
 
-Este proyecto está licenciado bajo la Licencia MIT - vea el archivo [LICENSE](LICENSE) para más detalles.
+Este proyecto está licenciado bajo la Licencia MIT - vea el archivo [LICENSE](LICENSE.txt) para más detalles.
 
 ## 📞 Contacto
 
